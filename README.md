@@ -22,3 +22,17 @@ yarn serve
 ```
 yarn build
 ```
+# Are you Having Problems?
+```
+C:\Users\YOUR_USER\Desktop\qbcore-redm-framework\txData\SERVERNAME\resources\[qbr]\qbr-clothing\html>yarn install
+'yarn' is not recognized as an internal or external command,
+operable program or batch file.
+```
+Do you have node installed?
+```
+npm install --global yarn
+```
+Need to install Node?
+```
+https://nodejs.org/en/
+```
