@@ -1,4 +1,4 @@
-# QB-Clothing
+# QBR-Clothing
 
 ## Project setup
 ```

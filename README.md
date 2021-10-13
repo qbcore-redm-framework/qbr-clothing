@@ -1,2 +1,2 @@
-# qb-clothing
+# qbr-clothing
 Clothing for RedM QBCore

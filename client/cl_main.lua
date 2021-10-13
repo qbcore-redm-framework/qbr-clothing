@@ -1,4 +1,4 @@
-QBCore = exports['qb-core']:GetCoreObject()
+QBCore = exports['qbr-core']:GetCoreObject()
 camera = -1
 isNewPlayer = false
 local isLoggedIn = false
@@ -47,8 +47,8 @@ AddEventHandler('QBCore:Client:OnJobUpdate', function(JobInfo)
 end)
 
 
-RegisterNetEvent('qb-clothing:client:newPlayer')
-AddEventHandler('qb-clothing:client:newPlayer', function()
+RegisterNetEvent('qbr-clothing:client:newPlayer')
+AddEventHandler('qbr-clothing:client:newPlayer', function()
     SetEntityVisible(PlayerPedId(), true)
     SetEntityHeading(PlayerPedId(), 105.68)
     isNewPlayer = true
@@ -77,9 +77,9 @@ end)
 CreateThread(function()
     for k,v in pairs(Config.Stores) do
         if Config.Stores[k].shopType == "clothing" then
-            exports['qb-prompts']:createPrompt(v.name, v.coords, 0xCEFD9220, 'Open Clothing Menu', {
+            exports['qbr-prompts']:createPrompt(v.name, v.coords, 0xCEFD9220, 'Open Clothing Menu', {
                 type = 'client',
-                event = 'qb-clothing:client:openMenu',
+                event = 'qbr-clothing:client:openMenu',
                 args = { false, true, false },
             })
             
@@ -88,9 +88,9 @@ CreateThread(function()
             SetBlipScale(clothingShop, 0.7)
             Citizen.InvokeNative(0x9CB1A1623062F402, blip, "Clothing store")
         elseif Config.Stores[k].shopType == "outfits" then
-            exports['qb-prompts']:createPrompt(v.name, v.coords, 0xF3830D8E, 'Open Outfits Menu', {
+            exports['qbr-prompts']:createPrompt(v.name, v.coords, 0xF3830D8E, 'Open Outfits Menu', {
                 type = 'client',
-                event = 'qb-clothing:client:openOutfits',
+                event = 'qbr-clothing:client:openOutfits',
                 args = { false, true, false },
             })
         end
@@ -103,13 +103,13 @@ function insert(table, value)
     table[#table + 1] = value
 end
 
-RegisterNetEvent('qb-clothing:client:openMenu')
-AddEventHandler('qb-clothing:client:openMenu', function(skinsMenu, clothesMenu, new)
+RegisterNetEvent('qbr-clothing:client:openMenu')
+AddEventHandler('qbr-clothing:client:openMenu', function(skinsMenu, clothesMenu, new)
     openMenu(skinsMenu, clothesMenu, new)
 end)
 
-RegisterNetEvent('qb-clothing:client:openOutfits')
-AddEventHandler('qb-clothing:client:openOutfits', function()
+RegisterNetEvent('qbr-clothing:client:openOutfits')
+AddEventHandler('qbr-clothing:client:openOutfits', function()
     openOutfitsMenu()
 end)
 
@@ -347,7 +347,7 @@ end)
 
 
 function openOutfitsMenu()
-    QBCore.Functions.TriggerCallback('qb-clothing:server:getOutfits', function(outfits)
+    QBCore.Functions.TriggerCallback('qbr-clothing:server:getOutfits', function(outfits)
         SendNUIMessage({
             type = 'setOutfits',
             data = outfits

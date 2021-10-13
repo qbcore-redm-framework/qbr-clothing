@@ -116,20 +116,20 @@ export default {
   methods: {
     setCamera(id) {
       this.cameraSelect = id
-      fetch(`https://qb-clothing/setupCam`, {method: 'POST', body: JSON.stringify({value: id})})
+      fetch(`https://qbr-clothing/setupCam`, {method: 'POST', body: JSON.stringify({value: id})})
     },
     rotate(type) {
-      fetch(`https://qb-clothing/rotateCam`, {
+      fetch(`https://qbr-clothing/rotateCam`, {
         method: 'POST',
         body: JSON.stringify({type})
       })
     },
     save() {
       if (this.activeNUI == 'setNew') {
-        fetch(`https://qb-clothing/save`, {method: 'POST', body: JSON.stringify({newPlayer: true})})
+        fetch(`https://qbr-clothing/save`, {method: 'POST', body: JSON.stringify({newPlayer: true})})
       } else {
         if (this.outfitName === '') return;
-        fetch(`https://qb-clothing/saveOutfit`, {method: 'POST', body: JSON.stringify({outfitName: this.outfitName})})
+        fetch(`https://qbr-clothing/saveOutfit`, {method: 'POST', body: JSON.stringify({outfitName: this.outfitName})})
       }
       this.reset()
     },
@@ -182,10 +182,10 @@ export default {
       if (this.activeNUI === 'setNew') return
       if (this.activeNUI === 'setBoth') return
       if (this.activeNUI === 'setClothes' || this.activeNUI === 'setSkins') {
-        fetch(`https://qb-clothing/close`, {method: 'POST', body: JSON.stringify({saveClothes: false, saveSkin: false})})
+        fetch(`https://qbr-clothing/close`, {method: 'POST', body: JSON.stringify({saveClothes: false, saveSkin: false})})
         this.reset()
       } else if (this.activeNUI === 'setOutfits') {
-        fetch(`https://qb-clothing/closeMenu`, {method: 'POST', body: JSON.stringify({})})
+        fetch(`https://qbr-clothing/closeMenu`, {method: 'POST', body: JSON.stringify({})})
         this.reset()
       }
     },
@@ -195,9 +195,9 @@ export default {
       }
       if (this.displayDialog) return
       if (this.activeNUI === 'setOutfits') {
-        fetch(`https://qb-clothing/closeMenu`, {method: 'POST', body: JSON.stringify({})})
+        fetch(`https://qbr-clothing/closeMenu`, {method: 'POST', body: JSON.stringify({})})
       } else { 
-        fetch(`https://qb-clothing/close`, {method: 'POST', body: JSON.stringify({saveClothes: false, saveSkin: false})})
+        fetch(`https://qbr-clothing/close`, {method: 'POST', body: JSON.stringify({saveClothes: false, saveSkin: false})})
       }
       this.reset()
     },
@@ -244,11 +244,11 @@ export default {
         } else {
           type = 'clothes'
         }
-        await fetch(`https://qb-clothing/close`, {method: 'POST', body: JSON.stringify({type})})
+        await fetch(`https://qbr-clothing/close`, {method: 'POST', body: JSON.stringify({type})})
       } else if (event.key === 'd') {
-        await fetch(`https://qb-clothing/rotateRight`, {method: 'POST', body: JSON.stringify({})})
+        await fetch(`https://qbr-clothing/rotateRight`, {method: 'POST', body: JSON.stringify({})})
       } else if (event.key === 'a') {
-        await fetch(`https://qb-clothing/rotateLeft`, {method: 'POST', body: JSON.stringify({})})
+        await fetch(`https://qbr-clothing/rotateLeft`, {method: 'POST', body: JSON.stringify({})})
       }
     })
   }

@@ -59,7 +59,7 @@
         this.cameraSelect = id
       },
       onChangeCloth() {
-        fetch(`https://qb-clothing/applyClothes`, {method: 'POST', body: JSON.stringify({values: this.clothes})})
+        fetch(`https://qbr-clothing/applyClothes`, {method: 'POST', body: JSON.stringify({values: this.clothes})})
       },
       onClickHandler(type, element) {
         if (type === 'inc') {
@@ -73,7 +73,7 @@
             this.clothes[element].currentValue = this.clothes[element].maxValue
           }
         }
-        fetch(`https://qb-clothing/applyClothes`, {method: 'POST', body: JSON.stringify({values: this.clothes})})
+        fetch(`https://qbr-clothing/applyClothes`, {method: 'POST', body: JSON.stringify({values: this.clothes})})
       }
     },
 

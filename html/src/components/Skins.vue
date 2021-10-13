@@ -242,7 +242,7 @@
         },
 
         async removeHat() {
-          fetch(`https://qb-clothing/removeHat`, {method: 'POST', body: JSON.stringify({})})
+          fetch(`https://qbr-clothing/removeHat`, {method: 'POST', body: JSON.stringify({})})
         },
 
         onClickHandler(type, element) {
@@ -261,7 +261,7 @@
         },
 
         applySkins() {
-          fetch(`https://qb-clothing/applySkin`, {method : 'POST', body : JSON.stringify({values: this.skins})})
+          fetch(`https://qbr-clothing/applySkin`, {method : 'POST', body : JSON.stringify({values: this.skins})})
         },
 
       },

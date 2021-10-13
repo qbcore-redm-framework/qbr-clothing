@@ -1,6 +1,6 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['qbr-core']:GetCoreObject()
 
-QBCore.Functions.CreateCallback('qb-clothing:server:isPlayerNew', function(source, cb)
+QBCore.Functions.CreateCallback('qbr-clothing:server:isPlayerNew', function(source, cb)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local result = exports.oxmysql:executeSync('SELECT * FROM playerskins WHERE citizenid=@citizenid AND active=@active', {['@citizenid'] = Player.PlayerData.citizenid, ['@active'] = 1})
@@ -11,8 +11,8 @@ QBCore.Functions.CreateCallback('qb-clothing:server:isPlayerNew', function(sourc
     end
 end)
 
-RegisterServerEvent("qb-clothing:server:saveSkin")
-AddEventHandler('qb-clothing:server:saveSkin', function(model, skin, clothes)
+RegisterServerEvent("qbr-clothing:server:saveSkin")
+AddEventHandler('qbr-clothing:server:saveSkin', function(model, skin, clothes)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if model ~= nil and skin ~= nil then
@@ -28,8 +28,8 @@ AddEventHandler('qb-clothing:server:saveSkin', function(model, skin, clothes)
     end
 end)
 
-RegisterServerEvent("qb-clothing:server:saveOutfit")
-AddEventHandler("qb-clothing:server:saveOutfit", function(outfitName, model, skinData)
+RegisterServerEvent("qbr-clothing:server:saveOutfit")
+AddEventHandler("qbr-clothing:server:saveOutfit", function(outfitName, model, skinData)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if model ~= nil and skinData ~= nil then
@@ -43,15 +43,15 @@ AddEventHandler("qb-clothing:server:saveOutfit", function(outfitName, model, ski
         })
         local result = exports.oxmysql:fetchSync('SELECT * FROM player_outfits WHERE citizenid = @citizenid', { ['@citizenid'] = Player.PlayerData.citizenid })
         if result[1] ~= nil then
-            TriggerClientEvent('qb-clothing:client:reloadOutfits', src, result)
+            TriggerClientEvent('qbr-clothing:client:reloadOutfits', src, result)
         else
-            TriggerClientEvent('qb-clothing:client:reloadOutfits', src, nil)
+            TriggerClientEvent('qbr-clothing:client:reloadOutfits', src, nil)
         end
     end
 end)
 
-RegisterServerEvent("qb-clothing:server:removeOutfit")
-AddEventHandler("qb-clothing:server:removeOutfit", function(outfitName, outfitId)
+RegisterServerEvent("qbr-clothing:server:removeOutfit")
+AddEventHandler("qbr-clothing:server:removeOutfit", function(outfitName, outfitId)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     exports.oxmysql:execute('DELETE player_outfits (citizenid, outfitname, model, skin, outfitId) VALUES (@citizenid, @outfitname, @model, @skin, @outfitId)', {
@@ -63,13 +63,13 @@ AddEventHandler("qb-clothing:server:removeOutfit", function(outfitName, outfitId
     })
     local result = exports.oxmysql:fetchSync('SELECT * FROM player_outfits WHERE citizenid = @citizenid', { ['@citizenid'] = Player.PlayerData.citizenid })
     if result[1] ~= nil then
-        TriggerClientEvent('qb-clothing:client:reloadOutfits', src, result)
+        TriggerClientEvent('qbr-clothing:client:reloadOutfits', src, result)
     else
-        TriggerClientEvent('qb-clothing:client:reloadOutfits', src, nil)
+        TriggerClientEvent('qbr-clothing:client:reloadOutfits', src, nil)
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-clothing:server:getOutfits', function(source, cb)
+QBCore.Functions.CreateCallback('qbr-clothing:server:getOutfits', function(source, cb)
     local Player = QBCore.Functions.GetPlayer(source)
     local retVal = {}
 

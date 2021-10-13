@@ -4,7 +4,7 @@ games { 'rdr3', 'gta5' }
 
 rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aware my resources *will* become incompatible once RedM ships.'
 
-description 'QB-Clothing'
+description 'QBR-Clothing'
 version '1.0.0'
 
 ui_page 'html/dist/index.html'
@@ -28,5 +28,5 @@ files {
 }
 
 dependencies {
-	'qb-core'
+	'qbr-core'
 }
