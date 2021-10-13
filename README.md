@@ -1,8 +1,11 @@
 # qbr-clothing
 Clothing for RedM QBCore
 
-# Open Command Promp ( <Win + R> and type cmd )
-# Go to your qbr-clothing/html directory, for EXAMPLE:
+# Guide:
+```
+Open Command Promp ( <Win + R> and type cmd )
+Go to your qbr-clothing/html directory, for EXAMPLE:
+```
 ```
 $ cd C:\Users\YOUR_USER\Desktop\qbcore-redm-framework\txData\SERVERNAME\resources\[qbr]\qbr-clothing\html
 ```
