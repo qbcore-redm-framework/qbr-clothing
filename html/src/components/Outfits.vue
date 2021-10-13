@@ -28,7 +28,7 @@ export default {
   methods: {
     async useOutfit(id) {
       const usingOutfit = this.outfits.filter((f) => f.outfitname === id)
-      await fetch(`https://qbr-clothing/useOutfit`, {method:'POST', body: JSON.stringify({usingOutfit})})
+      await fetch(`https://qb-clothing/useOutfit`, {method:'POST', body: JSON.stringify({usingOutfit})})
       this.$root.$emit('close')
     }
   },
