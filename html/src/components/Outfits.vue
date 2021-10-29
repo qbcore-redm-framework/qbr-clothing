@@ -1,5 +1,4 @@
 <template>
-  <div class="clothing-menu-container">
   <div class="clothing-menu-character-container">
     <div class="clothing-menu-option-header"><p>Outfits</p></div>
     <div class="clothing-menu-option">
@@ -12,7 +11,6 @@
         </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 

@@ -47,36 +47,50 @@
           </div>
         </div>
       </div>
-        <Outfits v-if="navigationSelect === 0" v-bind:data="outfits"/>
-        <Skins v-if="navigationSelect === 1" v-bind:skin="skin" v-bind:isNewPlayer="isNew"/>
-        <Clothes v-if="navigationSelect === 2" v-bind:clothes="clothes" v-bind:isNew="isNew"/>
-        <div class="clothing-menu-actions">
-          <v-btn class="skinButton" v-if="!displayDialog" @click="save">Save</v-btn>
-          <v-col cols="auto" v-if="displayDialog">
-            <v-dialog
-                transition="dialog-top-transition"
-                max-width="600"
-                v-model="dialog"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn class="skinButton" v-bind="attrs" v-on="on">Save</v-btn>
-              </template>
-              <template >
-                <v-card>
-                  <v-toolbar color="secondary" dark>Save your outfit</v-toolbar>
-                  <v-card-text>
-                    <v-text-field v-model="outfitName" label="Enter the outfit name"></v-text-field>
-                  </v-card-text>
-                  <v-card-actions class="justify-end">
-                    <v-btn text @click="save">Save Outfit</v-btn>
-                  </v-card-actions>
-                </v-card>
-              </template>
-            </v-dialog>
-          </v-col>
-          <v-btn dark @click="cancelNUI" class="skinButton">Cancel</v-btn>
+      <div class="clothing-menu-container">
+        <div class="clothing-menu-header-cameras">
+          <v-btn dark elevation="2" @click="setCamera(1)" v-bind:class="`clothing-menu-header-camera-btn ${cameraSelect === 1 ? 'active' : ''}`">
+              <i class="fas fa-horse-head"></i>
+          </v-btn>
+          <v-btn dark elevation="2" @click="setCamera(2)" v-bind:class="`clothing-menu-header-camera-btn ${cameraSelect === 2 ? 'active' : ''}`">
+              <i class="fas fa-tshirt"></i>
+          </v-btn>
+          <v-btn dark elevation="2" @click="setCamera(3)" v-bind:class="`clothing-menu-header-camera-btn ${cameraSelect === 3 ? 'active' : ''}`">
+              <i class="fas fa-socks"></i>
+          </v-btn>
         </div>
+        <Outfits v-if="navigationSelect === 0" v-bind:data="outfits"/>
+        <Skins v-if="navigationSelect === 1" v-bind:data="skin"/>
+        <Clothes v-if="navigationSelect === 2" v-bind:data="clothes"/>
       </div>
+    </div>
+    <div class="clothing-menu-actions">
+      <v-btn class="skinButton" v-if="!displayDialog" @click="save">Save</v-btn>
+      <v-col cols="auto" v-if="displayDialog">
+        <v-dialog
+            transition="dialog-top-transition"
+            max-width="600"
+            v-model="dialog"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn class="skinButton" v-bind="attrs" v-on="on">Save</v-btn>
+          </template>
+          <template >
+            <v-card>
+              <v-toolbar color="secondary" dark>Save your outfit</v-toolbar>
+              <v-card-text>
+                <v-text-field v-model="outfitName" label="Enter the outfit name"></v-text-field>
+              </v-card-text>
+              <v-card-actions class="justify-end">
+                <v-btn text @click="save">Save Outfit</v-btn>
+                <v-btn text @click="close">Close</v-btn>
+              </v-card-actions>
+            </v-card>
+          </template>
+        </v-dialog>
+      </v-col>
+      <v-btn dark @click="close" class="skinButton">Cancel</v-btn>
+    </div>
   </v-app>
 </template>
 
@@ -108,8 +122,6 @@ export default {
       skin: [],
       clothes: [],
       outfits: [],
-      isNew: false,
-      activeNUI: ''
     };
   },
 
@@ -125,7 +137,7 @@ export default {
       })
     },
     save() {
-      if (this.activeNUI == 'setNew') {
+      if (!this.displayDialog) {
         fetch(`https://qb-clothing/save`, {method: 'POST', body: JSON.stringify({newPlayer: true})})
       } else {
         if (this.outfitName === '') return;
@@ -137,7 +149,7 @@ export default {
       this.isVisible = visible;
     },
     setSkins(data) {
-      this.skin = data.skins
+      this.skin = skins
       this.navigationSelect = 1
       this.showNavigationButtons = 1
       this.showMain(true)
@@ -147,26 +159,22 @@ export default {
       this.clothes = data.clothes
       this.showNavigationButtons = 3
       this.navigationSelect = 1
-      this.isNew = data.isNew
       this.showMain(true)
-      this.activeNUI = 'setBoth'
     },
     setNavigation(id) {
       this.navigationSelect = id
     },
     setClothes(data) {
-      this.clothes = data.clothes
+      this.clothes = data
       this.showNavigationButtons = 2
       this.navigationSelect = 2
       this.showMain(true)
-      this.activeNUI = 'setClothes'
     },
     setOutfits(data) {
       this.outfits = data
       this.showNavigationButtons = 0
       this.navigationSelect = 0
       this.showMain(true)
-      this.activeNUI = 'setOutfits'
     },
     setNew(data) {
       this.clothes = data.clothes
@@ -175,31 +183,10 @@ export default {
       this.navigationSelect = 1
       this.showMain(true)
       this.displayDialog = false
-      this.isNew = true
-      this.activeNUI = 'setNew'
-    },
-    cancelNUI() {
-      if (this.activeNUI === 'setNew') return
-      if (this.activeNUI === 'setBoth') return
-      if (this.activeNUI === 'setClothes' || this.activeNUI === 'setSkins') {
-        fetch(`https://qb-clothing/close`, {method: 'POST', body: JSON.stringify({saveClothes: false, saveSkin: false})})
-        this.reset()
-      } else if (this.activeNUI === 'setOutfits') {
-        fetch(`https://qb-clothing/closeMenu`, {method: 'POST', body: JSON.stringify({})})
-        this.reset()
-      }
     },
     close() {
-      if (this.activeNUI === 'setBoth') {
-        this.dialog = !this.dialog
-      }
-      if (this.displayDialog) return
-      if (this.activeNUI === 'setOutfits') {
-        fetch(`https://qb-clothing/closeMenu`, {method: 'POST', body: JSON.stringify({})})
-      } else { 
-        fetch(`https://qb-clothing/close`, {method: 'POST', body: JSON.stringify({saveClothes: false, saveSkin: false})})
-      }
       this.reset()
+      fetch(`https://qb-clothing/close`, {method: 'POST', body: JSON.stringify({})})
     },
     reset() {
       this.showMain(false)
@@ -217,11 +204,9 @@ export default {
   },
   mounted() {
     this.$root.$on('close', () => {
-      this.reset()
-    })
-
-    this.$root.$on('setCamera', (id) => {
-      this.setCamera(id)
+      this.showMain(false);
+      this.navigationSelect = 0
+      this.showNavigationButtons = 0
     })
     this.listener = window.addEventListener(
         'message',
@@ -236,7 +221,6 @@ export default {
     );
     this.keydownListener = window.addEventListener('keydown', async (event) => {
       if (event.key === 'Escape') {
-        if(this.displayDialog) return;
         this.showMain(false)
         let type = '';
         if (this.navigationSelect === 1) {
@@ -257,14 +241,6 @@ export default {
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Love+Ya+Like+A+Sister&display=swap');
-  body {
-    overflow-x: hidden;
-  }
-
-  ::-webkit-scrollbar {
-  width: 0 !important
-  }
-
   .theme--dark.v-application {
     background: transparent !important;
     .v-input,

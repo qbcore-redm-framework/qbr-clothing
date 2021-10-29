@@ -28,7 +28,6 @@ RegisterNUICallback('rotateCam', function(data, cb)
     cb(true)
 end)
 
-
 RegisterNUICallback('setupCam', function(data, cb)
     local value = data.value
 
@@ -48,23 +47,19 @@ RegisterNUICallback('setupCam', function(data, cb)
     cb(true)
 end)
 
-
 RegisterNUICallback('applySkin', function(data, cb)
     local skins = {}
-    skins.skinDetails = {}
-    skins.overlays = {}
-    for k,v in pairs(data.values.skinDetails) do
-        skins.skinDetails[v.name] = tonumber(v.currentValue)
-    end
-
-    for k,v in pairs(data.values.overlays) do
-        skins.overlays[k] = {}
-        for n,j in pairs(v) do
-            skins.overlays[k][j.name] = tonumber(j.currentValue)
+    for k,v in pairs(data.values) do
+        if (skins[v.name] == nil) then
+            skins[v.name] = tonumber(v.currentValue)
         end
     end
     if (next(skins) ~= nil) then
-        loadSkin(PlayerPedId(), skins, false)
+        if (isNewPlayer) then
+            loadSkin(PlayerPedId(), skins)
+        else
+            changeNotUpdate(PlayerPedId(), skins)
+        end
     end
     cb(true)
 end)
@@ -86,30 +81,8 @@ RegisterNUICallback('applyClothes', function(data, cb)
     cb(true)
 end)
 
-RegisterNUICallback('applyOverlay', function(data, cb)
-    local data1 = json.encode(data)
-    local data2 = json.decode(data1)
-    local overlays = {}
-    for k,v in pairs(data2.value) do
-        overlays[k] = {}
-        for _,j in pairs(v) do
-            overlays[k][j.name] = tonumber(j.currentValue)
-        end
-    end
-    changeNotUpdate(PlayerPedId(), SkinData.skinDetails)
-    applyOverlay(PlayerPedId(), overlays)
-end)
-
 RegisterNUICallback('close', function(data, cb)
-    local saveClothes = data.saveClothes
-    local saveSkin = data.saveSkin
-    if (saveClothes) then
-        ClothesData = PreviewClothesData
-    end
-    if (saveSkin) then
-        SkinData = PreviewSkinData
-    end
-    loadSkin(PlayerPedId(), SkinData, false)
+    loadSkin(PlayerPedId(), SkinData)
     loadClothes(PlayerPedId(), ClothesData, false)
     SetNuiFocus(false, false)
     RenderScriptCams(false, true, 250, 1, 0)
@@ -119,20 +92,9 @@ RegisterNUICallback('close', function(data, cb)
     cb(true)
 end)
 
-RegisterNUICallback('closeMenu', function(data, cb)
-    loadSkin(PlayerPedId(), SkinData, false)
-    loadClothes(PlayerPedId(), ClothesData, false)
-    SetNuiFocus(false, false)
-    RenderScriptCams(false, true, 250, 1, 0)
-    DestroyCam(cam, false)
-    FreezeEntityPosition(PlayerPedId(), false)
-    SetNuiFocus(false, false)
-    cb(true)
-end)
-
 RegisterNUICallback('save', function(_, cb)
     local model = GetEntityModel(PlayerPedId())
-    local skins = json.encode(PreviewSkinData)
+    local skins = json.encode(SkinData)
     local clothes = json.encode(ClothesData)
     TriggerServerEvent('qbr-clothing:server:saveSkin', model, skins, clothes)
     if (isNewPlayer) then
@@ -174,12 +136,5 @@ RegisterNUICallback('useOutfit', function(data, cb)
     loadSkin(PlayerPedId(), SkinData)
     loadClothes(PlayerPedId(), data.usingOutfit[1].skin, false)
     SetNuiFocus(false, false)
-    cb(true)
-end)
-
-
-RegisterNUICallback('removeHat', function(_,cb)
-    Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), GetHashKey("hats"), 0)
-    Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), 0, 1, 1, 1, 0)
     cb(true)
 end)
