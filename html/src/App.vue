@@ -148,7 +148,7 @@ export default {
     showMain(visible) {
       this.isVisible = visible;
     },
-    setSkins(data) {
+    setSkins(skins) {
       this.skin = skins
       this.navigationSelect = 1
       this.showNavigationButtons = 1
