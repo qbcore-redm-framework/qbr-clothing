@@ -1,21 +1,9 @@
 <template>
-    <div class="clothing-menu-container">
-      <div class="clothing-menu-header-cameras">
-        <v-btn dark elevation="2" @click="setCamera(1)" v-bind:class="`clothing-menu-header-camera-btn ${cameraSelect === 1 ? 'active' : ''}`">
-          <i class="fas fa-horse-head"></i>
-        </v-btn>
-        <v-btn dark elevation="2" @click="setCamera(2)" v-bind:class="`clothing-menu-header-camera-btn ${cameraSelect === 2 ? 'active' : ''}`">
-          <i class="fas fa-tshirt"></i>
-        </v-btn>
-        <v-btn dark elevation="2" @click="setCamera(3)" v-bind:class="`clothing-menu-header-camera-btn ${cameraSelect === 3 ? 'active' : ''}`">
-          <i class="fas fa-socks"></i>
-        </v-btn>
-      </div>
   <div class="clothing-menu-character-container">
     <div class="clothing-menu-option-header"><p>Clothes Customization</p></div>
     <div class="clothing-menu-option">
       <div class="clothing-menu-option-buttons">
-        <div class="clothing-menu-option-item" v-for="(cloth, index) of currentClothes" v-bind:key="index">
+        <div class="clothing-menu-option-item" v-for="(cloth, index) of clothes" v-bind:key="index">
           <v-row justify="center">
             <v-expansion-panels inset>
               <v-expansion-panel>
@@ -28,7 +16,7 @@
                       <div><v-btn dark  @click="onClickHandler('inc', index)"><i class="fas fa-arrow-right"></i></v-btn></div>
                     </div>
                     <div>
-                      <v-slider v-model="cloth.currentValue" thumb-color="red" dark @change="onChangeCloth" :min="cloth.minValue" :max="cloth.maxValue"></v-slider>
+                      <v-slider v-model="cloth.currentValue" thumb-color="red" dark @change="onChangeCloth($event, index)" :min="cloth.minValue" :max="cloth.maxValue"></v-slider>
                     </div>
                   </div>
                 </v-expansion-panel-content>
@@ -39,29 +27,22 @@
       </div>
     </div>
   </div>
-    </div>
 </template>
 
 <script>
   export default {
-    props: ['clothes', 'isNewPlayer'],
+    props: ['data'],
     data() {
       return {
-        currentClothes: [],
-        cameraSelect: 0,
-        isNew: false
+        clothes: []
       }
     },
 
     methods: {
-      setCamera(id) {
-        this.$root.$emit('setCamera', id)
-        this.cameraSelect = id
+      async onChangeCloth(event, element) {
+        await fetch(`https://qb-clothing/applyClothes`, {method: 'POST', body: JSON.stringify({category: element, value: this.clothes[element].currentValue})})
       },
-      onChangeCloth() {
-        fetch(`https://qb-clothing/applyClothes`, {method: 'POST', body: JSON.stringify({values: this.clothes})})
-      },
-      onClickHandler(type, element) {
+      async onClickHandler(type, element) {
         if (type === 'inc') {
           this.clothes[element].currentValue += 1
           if (this.clothes[element].currentValue > this.clothes[element].maxValue) {
@@ -73,13 +54,12 @@
             this.clothes[element].currentValue = this.clothes[element].maxValue
           }
         }
-        fetch(`https://qb-clothing/applyClothes`, {method: 'POST', body: JSON.stringify({values: this.clothes})})
+        await fetch(`https://qb-clothing/applyClothes`, {method: 'POST', body: JSON.stringify({values: this.clothes})})
       }
     },
 
     mounted() {
-      this.currentClothes = this.clothes
-      this.isNew = this.isNewPlayer
+      this.clothes = this.data
     }
   }
 </script>
