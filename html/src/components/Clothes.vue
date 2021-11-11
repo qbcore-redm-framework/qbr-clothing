@@ -7,7 +7,7 @@
           <v-row justify="center">
             <v-expansion-panels inset>
               <v-expansion-panel>
-                <v-expansion-panel-header>{{cloth.name.replace("_", " ").toUpperCase()}} | {{cloth.currentValue}} | {{cloth.maxValue}}</v-expansion-panel-header>
+                <v-expansion-panel-header>{{cloth['name'].replace("_", " ").toUpperCase()}} | {{cloth.currentValue}} | {{cloth.maxValue}}</v-expansion-panel-header>
                 <v-expansion-panel-content>
                   <div class="clothing-menu-option-item-wrapper">
                     <div class="clothing-menu-option-item-arrows">
@@ -40,7 +40,7 @@
 
     methods: {
       async onChangeCloth(event, element) {
-        await fetch(`https://qb-clothing/applyClothes`, {method: 'POST', body: JSON.stringify({category: element, value: this.clothes[element].currentValue})})
+        await fetch(`https://qbr-clothing/applyClothes`, {method: 'POST', body: JSON.stringify({category: element, value: this.clothes[element].currentValue})})
       },
       async onClickHandler(type, element) {
         if (type === 'inc') {
@@ -54,7 +54,7 @@
             this.clothes[element].currentValue = this.clothes[element].maxValue
           }
         }
-        await fetch(`https://qb-clothing/applyClothes`, {method: 'POST', body: JSON.stringify({values: this.clothes})})
+        await fetch(`https://qbr-clothing/applyClothes`, {method: 'POST', body: JSON.stringify({values: this.clothes})})
       }
     },
 
