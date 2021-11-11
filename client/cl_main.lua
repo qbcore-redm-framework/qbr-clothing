@@ -118,9 +118,9 @@ function getSkinMaxValues()
     for k,v in pairs(Skins[sex]) do
         if (k ~= 'BODIES_UPPER' and k ~= 'BODIES_LOWER') then
             if (SkinData[k]) then
-                skins[#skins+1] = {name = k, minValue = 0, maxValue = #v, currentValue = SkinData[k]}
+                skins[#skins+1] = {name = k or 'unnamed', minValue = 0, maxValue = #v, currentValue = SkinData[k]}
             else
-                skins[#skins+1] = {name = k, minValue = 0, maxValue = #v, currentValue = 0}
+                skins[#skins+1] = {name = k or 'unnamed', minValue = 0, maxValue = #v, currentValue = 0}
             end
         end
     end
@@ -133,9 +133,9 @@ function getSkinMaxValues()
 
     for k,v in pairs(Config.Features) do
         if (SkinData[k]) then
-            skins[#skins+1] = {name = k, minValue = -100, maxValue = 100, currentValue = SkinData[k]}
+            skins[#skins+1] = {name = k or 'unnamed', minValue = -100, maxValue = 100, currentValue = SkinData[k]}
         else
-            skins[#skins+1] = {name = k, minValue = -100, maxValue = 100, currentValue = 0}
+            skins[#skins+1] = {name = k or 'unnamed', minValue = -100, maxValue = 100, currentValue = 0}
         end
     end
 
@@ -150,9 +150,9 @@ function getClothesMaxValues()
     local clothes = {}
     for k,v in pairs(Clothes[sex]) do
         if (ClothesData[k]) then
-            clothes[#clothes+1] = {name = k, minValue = 0, maxValue = #v, currentValue = ClothesData[k]}
+            clothes[#clothes+1] = {name = k or 'unnamed', minValue = 0, maxValue = #v, currentValue = ClothesData[k]}
         else
-            clothes[#clothes+1] = {name = k, minValue = 0, maxValue = #v, currentValue = 0}
+            clothes[#clothes+1] = {name = k or 'unnamed', minValue = 0, maxValue = #v, currentValue = 0}
         end
     end
 
