@@ -1,9 +1,6 @@
 QBCore = exports['qbr-core']:GetCoreObject()
 camera = -1
 isNewPlayer = false
-local isLoggedIn = false
-local PlayerData = {}
-local activePrompt = false
 local staticClothingRoom = vector4(-767.76, -1295.21, 43.84, 286.88)
 
 BeforePosition = nil
@@ -22,28 +19,14 @@ Clothes = {}
 Clothes.Male = {}
 Clothes.Female = {}
 
-RegisterNetEvent('QBCore:Client:OnPlayerLoaded')
-AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
-    if (NetworkIsInTutorialSession()) then
+RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+    if NetworkIsInTutorialSession() then
         NetworkEndTutorialSession()
         print('Removing from session')
     end
-    PlayerData = QBCore.Functions.GetPlayerData()
-    isLoggedIn = true
 end)
 
-RegisterNetEvent('QBCore:Client:OnPlayerUnload')
-AddEventHandler('QBCore:Client:OnPlayerUnload', function()
-    isLoggedIn = false
-end)
-
-RegisterNetEvent('QBCore:Client:OnJobUpdate')
-AddEventHandler('QBCore:Client:OnJobUpdate', function(JobInfo)
-    PlayerData.job = JobInfo
-end)
-
-RegisterNetEvent('qbr-clothing:client:newPlayer')
-AddEventHandler('qbr-clothing:client:newPlayer', function()
+RegisterNetEvent('qbr-clothing:client:newPlayer', function()
     SetEntityVisible(PlayerPedId(), true)
     SetEntityHeading(PlayerPedId(), 105.68)
     isNewPlayer = true
@@ -70,7 +53,6 @@ CreateThread(function()
                 event = 'qbr-clothing:client:openMenu',
                 args = { false, true, false },
             })
-            
             local clothingShop = N_0x554d9d53f696d002(1664425300, Config.Stores[k].coords)
             SetBlipSprite(clothingShop, 1195729388, 1)
             SetBlipScale(clothingShop, 0.7)
@@ -86,18 +68,11 @@ CreateThread(function()
     end
 end)
 
--- Faster insert
-function insert(table, value)
-    table[#table + 1] = value
-end
-
-RegisterNetEvent('qbr-clothing:client:openMenu')
-AddEventHandler('qbr-clothing:client:openMenu', function(skinsMenu, clothesMenu, new)
+RegisterNetEvent('qbr-clothing:client:openMenu', function(skinsMenu, clothesMenu, new)
     openMenu(skinsMenu, clothesMenu, new)
 end)
 
-RegisterNetEvent('qbr-clothing:client:openOutfits')
-AddEventHandler('qbr-clothing:client:openOutfits', function()
+RegisterNetEvent('qbr-clothing:client:openOutfits', function()
     openOutfitsMenu()
 end)
 
@@ -114,24 +89,24 @@ CreateThread(function()
                 if (Skins.Male[v.category_hashname] == nil) then
                     Skins.Male[v.category_hashname] = {}
                 end
-                insert(Skins.Male[v.category_hashname], v.hash)
+                Skins.Male[v.category_hashname][#Skins.Male[v.category_hashname]+1] = v.hash
             elseif (v.ped_type == 'female' and v.hashname ~= "" and v.is_multiplayer) then
                 if (Skins.Female[v.category_hashname] == nil) then
                     Skins.Female[v.category_hashname] = {}
                 end
-                insert(Skins.Female[v.category_hashname], v.hash)
+                Skins.Female[v.category_hashname][#Skins.Female[v.category_hashname]+1] = v.hash
             end
         else
             if (v.ped_type == "male" and v.is_multiplayer and v.category_hashname ~= "") then
                 if (Clothes.Male[v.category_hashname] == nil) then
                     Clothes.Male[v.category_hashname] = {}
                 end
-                insert(Clothes.Male[v.category_hashname], v.hash)
+                Clothes.Male[v.category_hashname][#Clothes.Male[v.category_hashname]+1] = v.hash
             elseif (v.ped_type == "female" and v.is_multiplayer and v.category_hashname ~= "") then
                 if (Clothes.Female[v.category_hashname] == nil) then
                     Clothes.Female[v.category_hashname] = {}
                 end
-                insert(Clothes.Female[v.category_hashname], v.hash)
+                Clothes.Female[v.category_hashname][#Clothes.Female[v.category_hashname]+1] = v.hash
             end
         end
     end
@@ -144,24 +119,24 @@ function getSkinMaxValues()
     for k,v in pairs(Skins[sex]) do
         if (k ~= 'BODIES_UPPER' and k ~= 'BODIES_LOWER') then
             if (SkinData[k]) then
-                insert(skins, {name = k, minValue = 0, maxValue = #v, currentValue = SkinData[k]})
+                skins[#skins+1] = {name = k, minValue = 0, maxValue = #v, currentValue = SkinData[k]}
             else
-                insert(skins, {name = k, minValue = 0, maxValue = #v, currentValue = 0})
+                skins[#skins+1] = {name = k, minValue = 0, maxValue = #v, currentValue = 0}
             end
         end
     end
 
     if (SkinData.skin) then
-        insert(skins, {name = 'skin', minValue = 0, maxValue = 6, currentValue = SkinData.skin})
+        skins[#skins+1] = {name = 'skin', minValue = 0, maxValue = 6, currentValue = SkinData.skin}
     else
-        insert(skins, {name = 'skin', minValue = 0, maxValue = 6, currentValue = 0})
+        skins[#skins+1] = {name = 'skin', minValue = 0, maxValue = 6, currentValue = 0}
     end
 
     for k,v in pairs(Config.Features) do
         if (SkinData[k]) then
-            insert(skins, {name = k, minValue = -100, maxValue = 100, currentValue = SkinData[k]})
+            skins[#skins+1] = {name = k, minValue = -100, maxValue = 100, currentValue = SkinData[k]}
         else
-            insert(skins, {name = k, minValue = -100, maxValue = 100, currentValue = 0})
+            skins[#skins+1] = {name = k, minValue = -100, maxValue = 100, currentValue = 0}
         end
     end
 
@@ -176,9 +151,9 @@ function getClothesMaxValues()
     local clothes = {}
     for k,v in pairs(Clothes[sex]) do
         if (ClothesData[k]) then
-            insert(clothes, {name = k, minValue = 0, maxValue = #v, currentValue = ClothesData[k]})
+            clothes[#clothes+1] = {name = k, minValue = 0, maxValue = #v, currentValue = ClothesData[k]}
         else
-            insert(clothes, {name = k, minValue = 0, maxValue = #v, currentValue = 0})
+            clothes[#clothes+1] = {name = k, minValue = 0, maxValue = #v, currentValue = 0}
         end
     end
 
@@ -310,8 +285,7 @@ end
 exports('RequestAndSetModel', RequestAndSetModel)
 
 AddEventHandler('onResourceStart', function(resource)
-    if (GetCurrentResourceName() == resource) then
-        isLoggedIn = true
+    if GetCurrentResourceName() == resource then
         disableCam()
         DestroyAllCams(true)
     end
