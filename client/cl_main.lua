@@ -30,7 +30,6 @@ RegisterNetEvent('qbr-clothing:client:newPlayer', function()
     SetEntityVisible(PlayerPedId(), true)
     SetEntityHeading(PlayerPedId(), 105.68)
     isNewPlayer = true
-    Wait(2000)
     openMenu(true, true, true)
 end)
 
