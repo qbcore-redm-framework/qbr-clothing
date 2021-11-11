@@ -4,7 +4,7 @@
     <div class="clothing-menu-option">
       <div class="clothing-menu-option-buttons">
         <div class="clothing-menu-option-item" v-for="(outfit, index) in outfits" v-bind:key="index">
-          <div class="clothing-menu-option-item-header"><p>{{outfit.outfitname.toUpperCase()}}</p></div>
+          <div class="clothing-menu-option-item-header"><p>{{outfit['outfitname'].toUpperCase()}}</p></div>
           <div class="clothing-menu-option-item-wrapper">
             <v-btn dark @click="useOutfit(outfit.outfitname)">Use</v-btn>
           </div>
@@ -13,7 +13,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 export default {
@@ -26,7 +25,7 @@ export default {
   methods: {
     async useOutfit(id) {
       const usingOutfit = this.outfits.filter((f) => f.outfitname === id)
-      await fetch(`https://qb-clothing/useOutfit`, {method:'POST', body: JSON.stringify({usingOutfit})})
+      await fetch(`https://qbr-clothing/useOutfit`, {method:'POST', body: JSON.stringify({usingOutfit})})
       this.$root.$emit('close')
     }
   },
