@@ -7,9 +7,8 @@
               <div class="clothing-menu-option-item" v-for="(skin, index) of skins" v-bind:key="index">
                 <v-row justify="center">
                   <v-expansion-panels inset>
-                    <v-expansion-panel
-                    >
-                      <v-expansion-panel-header>{{skin.name.replace("_", " ").toUpperCase()}} | {{skin.currentValue}} | {{skin.maxValue}}</v-expansion-panel-header>
+                    <v-expansion-panel>
+                      <v-expansion-panel-header>{{skin['name'].replace("_", " ").toUpperCase()}} | {{skin.currentValue}} | {{skin.maxValue}}</v-expansion-panel-header>
                       <v-expansion-panel-content>
                         <div class="clothing-menu-option-item-wrapper">
                           <div class="clothing-menu-option-item-arrows">
@@ -81,7 +80,7 @@
 
       methods: {
         async onChangeOverlay(event, element) {
-          fetch(`https://qb-clothing/applyOverlay`, {
+          fetch(`https://qbr-clothing/applyOverlay`, {
             method: 'POST',
             body: JSON.stringify({
               category: element,
@@ -91,11 +90,11 @@
         },
 
         async onChangeSkin(event, element) {
-          fetch(`https://qb-clothing/applySkin`, {method: 'POST', body: JSON.stringify({element, value: this.skins["skinDetails"][element].currentValue})})
+          fetch(`https://qbr-clothing/applySkin`, {method: 'POST', body: JSON.stringify({element, value: this.skins[element].currentValue})})
         },
 
         async onChangeFeatures(event, element) {
-          fetch(`https://qb-clothing/applyFeatures`, {
+          fetch(`https://qbr-clothing/applyFeatures`, {
             method: 'POST',
             body: JSON.stringify({
               category: element,
@@ -105,7 +104,7 @@
         },
 
         async removeHat() {
-          fetch(`https://qb-clothing/removeHat`, {method: 'POST', body: JSON.stringify({})})
+          fetch(`https://qbr-clothing/removeHat`, {method: 'POST', body: JSON.stringify({})})
         },
 
         async onClickHandlerFeatures(type, element) {
@@ -120,16 +119,16 @@
               this.skins['features'][element].currentValue = 0
             }
           }
-          fetch(`https://qb-clothing/applyFeatures`, {method : 'POST', body : JSON.stringify({category: element, value: this.skins['features'][element].currentValue})})
+          fetch(`https://qbr-clothing/applyFeatures`, {method : 'POST', body : JSON.stringify({category: element, value: this.skins['features'][element].currentValue})})
         },
         async onClickHandler(type, element) {
           if (type === 'inc') {
-            this.skins.skinDetails[element].currentValue += 1
+            this.skins[element].currentValue += 1
             if (this.skins[element].currentValue > this.skins[element].maxValue) {
               this.skins[element].currentValue = this.skins[element].maxValue
             }
           } else if (type === 'dec') {
-            this.skins.skinDetails[element].currentValue -= 1
+            this.skins[element].currentValue -= 1
             if (this.skins[element].currentValue < this.skins[element].minValue) {
               this.skins[element].currentValue = this.skins[element].minValue
             }
@@ -138,7 +137,7 @@
         },
 
         applySkins() {
-          fetch(`https://qb-clothing/applySkin`, {method : 'POST', body : JSON.stringify({values: this.skins})})
+          fetch(`https://qbr-clothing/applySkin`, {method : 'POST', body : JSON.stringify({values: this.skins})})
         },
 
       },
