@@ -140,7 +140,6 @@ end)
 function getSkinMaxValues()
     local sex = IsPedMale(PlayerPedId()) and 'Male' or 'Female'
     local skins = {}
-    skins.skinDetails = {}
     skins.overlays = {}
     for k,v in pairs(Skins[sex]) do
         if (k ~= 'BODIES_UPPER' and k ~= 'BODIES_LOWER') then
@@ -152,7 +151,7 @@ function getSkinMaxValues()
         end
     end
 
-    if (SkinData.skinDetails.skin) then
+    if (SkinData.skin) then
         insert(skins, {name = 'skin', minValue = 0, maxValue = 6, currentValue = SkinData.skin})
     else
         insert(skins, {name = 'skin', minValue = 0, maxValue = 6, currentValue = 0})
