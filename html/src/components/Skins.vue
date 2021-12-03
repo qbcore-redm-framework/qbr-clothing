@@ -1,29 +1,28 @@
 <template>
-    <div class="clothing-menu-character-container">
-        <div class="clothing-menu-option-header"><p>Skin Customization</p></div>
-        <div class="clothing-menu-option">
-            <div class="clothing-menu-option-buttons">
-              <div class=""><v-btn dark elevation="2" @click="removeHat"><i class="fas fa-min-square"></i>Remove Hat</v-btn></div>
-              <div class="clothing-menu-option-item" v-for="(skin, index) of skins" v-bind:key="index">
-                <v-row justify="center">
-                  <v-expansion-panels inset>
-                    <v-expansion-panel>
-                      <v-expansion-panel-header>{{skin['name'].replace("_", " ").toUpperCase()}} | {{skin.currentValue}} | {{skin.maxValue}}</v-expansion-panel-header>
-                      <v-expansion-panel-content>
-                        <div class="clothing-menu-option-item-wrapper">
-                          <div class="clothing-menu-option-item-arrows">
-                            <div><v-btn dark @click="onClickHandler('dec', index)"><i class="fas fa-arrow-left"></i></v-btn></div>
-                            <div><v-text-field  type="number" dark center :value="skin.currentValue"></v-text-field></div>
-                            <div><v-btn dark @click="onClickHandler('inc', index)"><i class="fas fa-arrow-right"></i></v-btn></div>
-                          </div>
-                          <div>
-                            <v-slider thumb-color="red" v-model="skin.currentValue"  @change="onChangeSkin($event, index)" dark :min="skin.minValue" :max="skin.maxValue"></v-slider>
-                          </div>
-                        </div>
-                      </v-expansion-panel-content>
-                    </v-expansion-panel>
-                  </v-expansion-panels>
-                </v-row>
+  <div class="clothing-menu-character-container">
+    <div class="clothing-menu-option-header"><p>Skin Customization</p></div>
+    <div class="clothing-menu-option">
+      <div class="clothing-menu-option-buttons">
+        <div class="clothing-menu-option-item" v-for="(skin, index) of skins" v-bind:key="index">
+          <v-row justify="center">
+            <v-expansion-panels inset>
+              <v-expansion-panel>
+                <v-expansion-panel-header>{{skin['name'].replace("_", " ").toUpperCase()}} | {{skin.currentValue}} | {{skin.maxValue}}</v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  <div class="clothing-menu-option-item-wrapper">
+                    <div class="clothing-menu-option-item-arrows">
+                      <div><v-btn dark @click="onClickHandler('dec', index)"><i class="fas fa-arrow-left"></i></v-btn></div>
+                      <div><v-text-field  type="number" dark center :value="skin.currentValue"></v-text-field></div>
+                      <div><v-btn dark @click="onClickHandler('inc', index)"><i class="fas fa-arrow-right"></i></v-btn></div>
+                    </div>
+                    <div>
+                      <v-slider thumb-color="red" v-model="skin.currentValue"  @change="onChangeSkin($event, index)" dark :min="skin.minValue" :max="skin.maxValue"></v-slider>
+                    </div>
+                  </div>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+          </v-row>
 <!--              <div class="clothing-menu-option-item" v-for="(skin, index) of skins['features']" v-bind:key="index">-->
 <!--                  <v-row justify="center">-->
 <!--                      <v-expansion-panels inset>-->

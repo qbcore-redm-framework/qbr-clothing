@@ -60,7 +60,7 @@
           </v-btn>
         </div>
         <Outfits v-if="navigationSelect === 0" v-bind:data="outfits"/>
-        <Skins v-if="navigationSelect === 1" v-bind:data="skin"/>
+        <Skins v-if="navigationSelect === 1" v-bind:data="skins"/>
         <Clothes v-if="navigationSelect === 2" v-bind:data="clothes"/>
       </div>
     </div>
@@ -119,7 +119,7 @@ export default {
       displayDialog: true,
       dialog: false,
       outfitName: '',
-      skin: [],
+      skins: [],
       clothes: [],
       outfits: [],
     };
@@ -149,13 +149,13 @@ export default {
       this.isVisible = visible;
     },
     setSkins(skins) {
-      this.skin = skins
+      this.skins = skins
       this.navigationSelect = 1
       this.showNavigationButtons = 1
       this.showMain(true)
     },
     setBoth(data) {
-      this.skin = data.skins
+      this.skins = data.skins
       this.clothes = data.clothes
       this.showNavigationButtons = 3
       this.navigationSelect = 1
@@ -178,7 +178,7 @@ export default {
     },
     setNew(data) {
       this.clothes = data.clothes
-      this.skin = data.skins
+      this.skins = data.skins
       this.showNavigationButtons = 3
       this.navigationSelect = 1
       this.showMain(true)
@@ -223,7 +223,7 @@ export default {
         this.showMain(false)
         let type = '';
         if (this.navigationSelect === 1) {
-          type = 'skin'
+          type = 'skins'
         } else {
           type = 'clothes'
         }
@@ -259,7 +259,7 @@ export default {
       text-align: center;
     }
     ::-webkit-scrollbar-track {
-      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.05);
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.05);
       background-color: rgba(245, 245, 245, 0.089);
     }
 
