@@ -11,19 +11,19 @@
                 <v-expansion-panel-content>
                   <div class="clothing-menu-option-item-wrapper">
                     <div class="clothing-menu-option-item-arrows">
-                      <div><v-btn dark @click="onClickHandler('dec', index)"><i class="fas fa-arrow-left"></i></v-btn></div>
+                      <div><v-btn dark  @click="onClickHandler('dec', index)"><i class="fas fa-arrow-left"></i></v-btn></div>
                       <div><v-text-field  type="number" dark center :value="skin.currentValue"></v-text-field></div>
-                      <div><v-btn dark @click="onClickHandler('inc', index)"><i class="fas fa-arrow-right"></i></v-btn></div>
+                      <div><v-btn dark  @click="onClickHandler('inc', index)"><i class="fas fa-arrow-right"></i></v-btn></div>
                     </div>
                     <div>
-                      <v-slider thumb-color="red" v-model="skin.currentValue"  @change="onChangeSkin($event, index)" dark :min="skin.minValue" :max="skin.maxValue"></v-slider>
+                      <v-slider v-model="skin.currentValue" thumb-color="red" dark @change="onChangeSkin($event, index)" :min="skin.minValue" :max="skin.maxValue"></v-slider>
                     </div>
                   </div>
                 </v-expansion-panel-content>
               </v-expansion-panel>
             </v-expansion-panels>
           </v-row>
-<!--              <div class="clothing-menu-option-item" v-for="(skin, index) of skins['features']" v-bind:key="index">-->
+             <!-- <div class="clothing-menu-option-item" v-for="(skin, index) of skins['features']" v-bind:key="index">-->
 <!--                  <v-row justify="center">-->
 <!--                      <v-expansion-panels inset>-->
 <!--                      <v-expansion-panel-->
@@ -61,7 +61,7 @@
 <!--                    </v-expansion-panel>-->
 <!--                  </v-expansion-panels>-->
 <!--                </v-row>-->
-<!--              </div>-->
+<!--              </div> -->
               </div>
             </div>
         </div>

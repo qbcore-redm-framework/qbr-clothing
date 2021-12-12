@@ -36,8 +36,8 @@ end)
 CreateThread(function()
     while true do
         local sleep = 1000
-        if (isNewPlayer) then
-            sleep = 1
+        if isNewPlayer then
+            sleep = 0
             DrawLightWithRange(-558.71 - 5.0, -3781.6 - 5.0, 238.6 + 1.0, 255, 255, 204, 50.5, 50.0)
         end
         Wait(sleep)
@@ -77,32 +77,32 @@ end)
 
 CreateThread(function()
     for _,v in pairs(cloth_hash_names) do
-        if (v.category_hashname == "heads"
+        if v.category_hashname == "heads"
                 or v.category_hashname == "eyes"
                 or v.category_hashname == "teeth"
                 or v.category_hashname == "BODIES_UPPER"
                 or v.category_hashname == "BODIES_LOWER"
                 or v.category_hashname == "beard"
-                or v.category_hashname == "hair") then
-            if (v.ped_type == 'male' and v.hashname ~= "" and v.is_multiplayer) then
-                if (Skins.Male[v.category_hashname] == nil) then
+                or v.category_hashname == "hair" then
+            if v.ped_type == 'male' and v.hashname ~= "" and v.is_multiplayer then
+                if not Skins.Male[v.category_hashname] then
                     Skins.Male[v.category_hashname] = {}
                 end
                 Skins.Male[v.category_hashname][#Skins.Male[v.category_hashname]+1] = v.hash
-            elseif (v.ped_type == 'female' and v.hashname ~= "" and v.is_multiplayer) then
-                if (Skins.Female[v.category_hashname] == nil) then
+            elseif v.ped_type == 'female' and v.hashname ~= "" and v.is_multiplayer then
+                if not Skins.Female[v.category_hashname] then
                     Skins.Female[v.category_hashname] = {}
                 end
                 Skins.Female[v.category_hashname][#Skins.Female[v.category_hashname]+1] = v.hash
             end
         else
-            if (v.ped_type == "male" and v.is_multiplayer and v.category_hashname ~= "") then
-                if (Clothes.Male[v.category_hashname] == nil) then
+            if v.ped_type == "male" and v.is_multiplayer and v.category_hashname ~= "" then
+                if not Clothes.Male[v.category_hashname] then
                     Clothes.Male[v.category_hashname] = {}
                 end
                 Clothes.Male[v.category_hashname][#Clothes.Male[v.category_hashname]+1] = v.hash
-            elseif (v.ped_type == "female" and v.is_multiplayer and v.category_hashname ~= "") then
-                if (Clothes.Female[v.category_hashname] == nil) then
+            elseif v.ped_type == "female" and v.is_multiplayer and v.category_hashname ~= "" then
+                if not Clothes.Female[v.category_hashname] then
                     Clothes.Female[v.category_hashname] = {}
                 end
                 Clothes.Female[v.category_hashname][#Clothes.Female[v.category_hashname]+1] = v.hash
@@ -139,7 +139,7 @@ function getSkinMaxValues()
         end
     end
 
-    if (#skins > 0) then
+    if #skins > 0 then
         return skins
     end
     return false
@@ -156,7 +156,7 @@ function getClothesMaxValues()
         end
     end
 
-    if (#clothes > 0) then
+    if #clothes > 0 then
         return clothes
     end
 
@@ -179,27 +179,27 @@ end
 
 function openMenu(skinMenu, clothesMenu, new)
     --TODO Refactor this code
-    if (new) then
+    if new then
         local skins = getSkinMaxValues()
         local clothes = getClothesMaxValues()
         SendNUIMessage({
             type = 'setNew',
             data = {skins = skins, clothes = clothes}
         })
-    elseif (skinMenu and not clothesMenu) then
+    elseif skinMenu and not clothesMenu then
         local skins = getSkinMaxValues()
         SendNUIMessage({
             type = 'setSkins',
             data = skins
         })
-    elseif (not skinMenu and clothesMenu) then
+    elseif not skinMenu and clothesMenu then
         clothingRoomTransition(staticClothingRoom, true)
         local clothes = getClothesMaxValues()
         SendNUIMessage({
             type = 'setClothes',
             data = clothes
         })
-    elseif (skinMenu and clothesMenu) then
+    elseif skinMenu and clothesMenu then
         local skins = getSkinMaxValues()
         local clothes = getClothesMaxValues()
         SendNUIMessage({
@@ -214,8 +214,8 @@ function openMenu(skinMenu, clothesMenu, new)
 end
 
 function clothingRoomTransition(coords, makeInvisible)
-    if (makeInvisible) then
-        if (not NetworkIsInTutorialSession()) then
+    if makeInvisible then
+        if not NetworkIsInTutorialSession() then
             NetworkStartSoloTutorialSession()
             print('adding to session')
         end
@@ -246,7 +246,7 @@ function enableCam()
     local coords = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0, 2.0, 0)
     RenderScriptCams(false, false, 0, 1, 0)
     DestroyCam(camera, false)
-    if(not DoesCamExist(camera)) then
+    if not DoesCamExist(camera) then
         camera = CreateCam('DEFAULT_SCRIPTED_CAMERA', true)
         SetCamActive(camera, true)
         RenderScriptCams(true, false, 0, true, true)
@@ -254,7 +254,7 @@ function enableCam()
         SetCamRot(camera, 0.0, 0.0, GetEntityHeading(PlayerPedId()) + 180)
     end
 
-    if customCamLocation ~= nil then
+    if customCamLocation then
         SetCamCoord(camera, customCamLocation.x, customCamLocation.y, customCamLocation.z)
     end
 end
@@ -268,9 +268,9 @@ end
 
 function RequestAndSetModel(model)
     local requestedModel = GetHashKey(model)
+    RequestModel(requestedModel)
     while not HasModelLoaded(requestedModel) do
-        Wait(100)
-        RequestModel(requestedModel)
+        Wait(0)
     end
     Wait(200)
     Citizen.InvokeNative(0xED40380076A31506, PlayerId(), requestedModel, false)

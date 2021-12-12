@@ -96,31 +96,30 @@
 
 <script>
 
-import Skins from "./components/Skins.vue";
 import Clothes from "./components/Clothes.vue";
+import Skins from "./components/Skins.vue";
 import Outfits from "./components/Outfits.vue";
 
 export default {
   name: 'App',
 
   components: {
-    Skins,
     Clothes,
+    Skins,
     Outfits
   },
 
   data() {
     return {
       isVisible: false,
-      publicPath: process.env.BASE_URL,
       cameraSelect: 0,
       navigationSelect: 0,
       showNavigationButtons: 0,
       displayDialog: true,
       dialog: false,
       outfitName: '',
-      skins: [],
       clothes: [],
+      skins: [],
       outfits: [],
     };
   },
@@ -211,7 +210,7 @@ export default {
     this.listener = window.addEventListener(
         'message',
         event => {
-          const element = event.data || event.detail;
+          const element = event.data;
           if (this[element.type]) {
             this[element.type](element.data);
           }
