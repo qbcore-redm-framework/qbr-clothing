@@ -238,140 +238,173 @@ export default {
 };
 </script>
 
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Love+Ya+Like+A+Sister&display=swap');
+<style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Love+Ya+Like+A+Sister&display=swap');
   .theme--dark.v-application {
     background: transparent !important;
-  }
-  .theme--dark.v-application .v-input, .theme--dark.v-application .v-input__control, .theme--dark.v-application .v-input__slot, .theme--dark.v-application .v-text-field__slot, .theme--dark.v-application input::-webkit-outer-spin-button, .theme--dark.v-application .v-input, .theme--dark.v-application .v-input__control, .theme--dark.v-application .v-input__slot, .theme--dark.v-application .v-text-field__slot, .theme--dark.v-application input::-webkit-inner-spin-button {
-    -webkit-appearance: none !important;
-    margin: 0;
-  }
-  .theme--dark.v-application .v-text-field input {
-    text-align: center;
-  }
-  .theme--dark.v-application ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.05);
-    background-color: rgba(245, 245, 245, 0.089);
-  }
-  .theme--dark.v-application ::-webkit-scrollbar {
-    width: 0.4vh;
-    background-color: rgba(245, 245, 245, 0.089);
-  }
-  .theme--dark.v-application ::-webkit-scrollbar-thumb {
-    background-color: #dd2e2e dc;
-  }
-  .theme--dark.v-application .clothing-menu-actions {
-    position: absolute;
-    width: 100%;
-    display: flex;
-    right: 5%;
-    bottom: 0%;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-evenly;
-    /* align-items: center;
-    */
-    align-items: center;
-  }
-  .theme--dark.v-application .skinButton {
-    width: 10vw;
-    font-family: 'Love Ya Like A Sister', sans-serif !important;
-    font-weight: 900;
-    font-size: 20px;
-    letter-spacing: 0.2em;
-  }
-  .theme--dark.v-application .clothesButton {
-    width: 10vw;
-    font-family: 'Love Ya Like A Sister', sans-serif !important;
-    font-weight: 900;
-    font-size: 20px;
-    letter-spacing: 0.2em;
-  }
-  .theme--dark.v-application .container {
-    width: 100%;
-    height: 100%;
-    font-family: 'Love Ya Like A Sister', cursive;
-    font-weight: 900;
-    display: flex;
-    justify-content: center;
-  }
-  .theme--dark.v-application .container .selection-menu-container {
-    position: absolute;
-    right: 30vw;
-  }
-  .theme--dark.v-application .container .selection-menu-container .selection-menu-wrapper {
-    width: 5%;
-    position: relative;
-    flex-direction: column;
-    display: flex;
-  }
-  .theme--dark.v-application .container .selection-menu-container .selection-menu-wrapper div {
-    margin-top: 2vw;
-  }
-  .theme--dark.v-application .container .change-camera-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 7vh;
-    width: 20vh;
-    background-color: rgba(0, 0, 0, 0.3);
-  }
-  .theme--dark.v-application .container .change-camera-buttons .change-camera-buttons-wrapper {
-    width: 100%;
-    display: flex;
-    margin-top: 1.5vw;
-    justify-content: space-evenly;
-    align-items: center;
-  }
-  .theme--dark.v-application .container .change-camera-buttons .change-camera-buttons-wrapper .clothing-menu-header-camera-btn {
-    height: 60%;
-    width: 20%;
-    margin-top: 4%;
-    float: left;
-    color: white;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 2px solid rgba(255, 255, 255, 0);
-    transition: all 0.1s linear;
-  }
-  .theme--dark.v-application .container .change-camera-buttons .change-camera-button {
-    font-family: 'Love Ya Like A Sister', cursive;
-  }
-  .theme--dark.v-application .container .change-camera-buttons .change-camera-button .v-btn i {
-    font-size: 30px;
-  }
-  .theme--dark.v-application .container .change-camera-buttons .change-camera-button > i {
-    font-size: 3vh;
-    color: white;
-    line-height: 5.5vh;
-  }
-  .theme--dark.v-application .container .change-camera-buttons .change-camera-footer {
-    color: red;
-    font-weight: 900;
-    font-size: 17px;
-    filter: drop-shadow(0 0 2px #000);
-    letter-spacing: 0.1em;
-  }
-  .theme--dark.v-application .container .clothing-menu-container {
-    position: absolute;
-    width: 45vh;
-    height: 90%;
-    overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.8);
-    right: 2vw;
-  }
-  .theme--dark.v-application .container .clothing-menu-container .clothing-menu-header-cameras {
-    width: 100%;
-    height: 5%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-  }
-  .theme--dark.v-application .active {
-    background-color: rgba(255, 0, 0, 0.3) !important;
+    .v-input,
+    .v-input__control,
+    .v-input__slot,
+    .v-text-field__slot,
+    input::-webkit-outer-spin-button,
+    .v-input,
+    .v-input__control,
+    .v-input__slot,
+    .v-text-field__slot,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none !important;
+      margin: 0;
+    }
+    .v-text-field input {
+      text-align: center;
+    }
+    ::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.05);
+      background-color: rgba(245, 245, 245, 0.089);
+    }
+
+    ::-webkit-scrollbar {
+      width: 0.4vh;
+      background-color: rgba(245, 245, 245, 0.089);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #dd2e2edc;
+    }
+    .clothing-menu-actions {
+      position: absolute;
+      width: 100%;
+      display: flex;
+      right: 5%;
+      bottom: 0%;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: space-evenly;
+      /* align-items: center; */
+      align-items: center;
+    }
+    .skinButton {
+      width: 10vw;
+      font-family: 'Love Ya Like A Sister', sans-serif !important;
+      font-weight: 900;
+      font-size: 20px;
+      letter-spacing: 0.2em;
+    }
+
+    .clothesButton {
+      width: 10vw;
+      font-family: 'Love Ya Like A Sister', sans-serif !important;
+      font-weight: 900;
+      font-size: 20px;
+      letter-spacing: 0.2em;
+    }
+    .container {
+      width: 100%;
+      height: 100%;
+      font-family: 'Love Ya Like A Sister', cursive;
+      font-weight: 900;
+      display: flex;
+      justify-content: center;
+
+      .selection-menu-container {
+        position: absolute;
+        right: 30vw;
+
+        .selection-menu-wrapper {
+          width: 5%;
+          position: relative;
+          flex-direction: column;
+          display: flex;
+        }
+
+        .selection-menu-wrapper div {
+          margin-top: 2vw;
+        }
+      }
+
+      .change-camera-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 7vh;
+        width: 20vh;
+        background-color: rgba(0, 0, 0, 0.3);
+        // background: url('./assets/background-black.png');
+        // background-repeat: no-repeat;
+        // background-position: center;
+        // background-size: 100% 100%;
+
+
+        .change-camera-buttons-wrapper {
+          width: 100%;
+          display: flex;
+          margin-top: 1.5vw;
+          justify-content: space-evenly;
+          align-items: center;
+
+          .clothing-menu-header-camera-btn {
+            height: 60%;
+            width: 20%;
+            margin-top: 4%;
+            float: left;
+            color: white;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0);
+            transition: all 0.1s linear;
+          }
+        }
+
+        .change-camera-button {
+          font-family: 'Love Ya Like A Sister', cursive;
+        }
+
+        .change-camera-button .v-btn i {
+          font-size: 30px;
+        }
+
+        .change-camera-button > i {
+          font-size: 3vh;
+          color: white;
+          line-height: 5.5vh;
+        }
+
+        .change-camera-footer {
+          color: red;
+          font-weight: 900;
+          font-size: 17px;
+          filter: drop-shadow(0 0 2px #000);
+          letter-spacing: 0.1em;
+        }
+      }
+
+      .clothing-menu-container {
+        position: absolute;
+        width: 45vh;
+        height: 90%;
+        //background: url(./assets/background-black.png);
+        //background-repeat: no-repeat;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.8);
+        //background-size: 101% 100%;
+        right: 2vw;
+
+        .clothing-menu-header-cameras {
+          width: 100%;
+          height: 5%;
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+        }
+
+      }
+    }
+
+    .active {
+      background-color: rgba(255, 0, 0, 0.3) !important;
+    }
   }
 </style>
