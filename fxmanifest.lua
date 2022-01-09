@@ -10,21 +10,25 @@ version '1.0.0'
 ui_page 'html/dist/index.html'
 
 shared_scripts {
-	'config.lua'
+	'shared/config.lua'
 }
 
-server_script 'server/sv_*.lua'
+server_scripts {
+	'server/*.lua'
+}
 
 client_scripts {
-	'overlays.lua',
-	'client/cl_*.lua',
-  	'cloth_hash_names.lua',
+	'client/*.lua',
 }
 
 files {
 	'html/dist/index.html',
-	'html/dist/img/*.png',
-	'html/dist/js/*.js',
+	'html/dist/*.png',
+	'html/dist/app.js',
+	'html/dist/*.eot',
+	'html/dist/*.woff2',
+	'html/dist/*.woff',
+	'html/dist/*.ttf',
 }
 
 dependencies {
