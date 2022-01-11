@@ -7,6 +7,7 @@ LoadSkin = function(ped, data)
   if data and next(data) then 
     dataExist = true 
   else
+    data = {}
     data.skin = 1
     data.heads = 1
     data.hair = 1
