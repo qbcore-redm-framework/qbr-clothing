@@ -128,7 +128,6 @@ export default function App() {
   const saveCharacter = () => {
     if(newPlayer) {
       fetch('https://qbr-clothing/save', {method: 'POST', body: JSON.stringify({})})
-
       closeMenu(true)
     } else if(!modal) {
       setModal(true)
@@ -236,7 +235,7 @@ export default function App() {
                 <button className='button button-solid' onClick={() => saveCharacter()}>
                   Save
                 </button>
-
+                
                 { (!newPlayer && menuType === 'outfits' || menuType === 'all') && 
                   <button className={navSelect === 1 ? 'button button-solid active' : 'button button-solid'}  onClick={() => setMenu(1)} data-tip='Outfits'>
                     <FontAwesomeIcon icon="suitcase" />
