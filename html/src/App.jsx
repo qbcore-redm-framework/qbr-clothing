@@ -25,27 +25,6 @@ export default function App() {
   const [clothes, setClothing] = useState([])
   const [outfitName, setOutfitName] = useState(null)
 
-  // const fakeArrayOutfits = [
-  //   { outfitname: 'Name 1' },
-  //   { outfitname: 'Name 2' },
-  //   { outfitname: 'Name 3' },
-  //   { outfitname: 'Name 4' },
-  //   { outfitname: 'Name 5' },
-  //   { outfitname: 'Name 6' },
-  //   { outfitname: 'Name 7' },
-  // ]
-
-  // const fakeArraySkins = [
-  //   { name: 'CLOTHING_ITEM_F_EYEWEAR_003_TINT_004', currentValue: 1, maxValue: 2, minValue: 0 },
-  //   { name: 'CLOTHING_ITEM_F_EYEWEAR_003_TINT_12', currentValue: 1, maxValue: 2, minValue: 0 },
-  //   { name: 'CLOTHING_ITEM_F_EYEWEAR_003_TINT_awd', currentValue: 1, maxValue: 2, minValue: 0 },
-  //   { name: 'CLOTHING_ITEM_F_EYEWEAR_003_TINT_012304', currentValue: 1, maxValue: 2, minValue: 0 },
-  //   { name: 'CLOTHING_ITEM_F_EYEWEAR_003_TINT_004', currentValue: 1, maxValue: 2, minValue: 0 },
-  //   { name: 'CLOTHING_ITEM_F_EYEWEAR_awd_TINT_004', currentValue: 1, maxValue: 2, minValue: 0 },
-  //   { name: 'CLOTHING_ITEM_F_EYEWEAR_003_TINT_004', currentValue: 1, maxValue: 2, minValue: 0 },
-  //   { name: 'CLOTHING_ITEM_F_EYEWEAR_003_TINT_004', currentValue: 1, maxValue: 2, minValue: 0 },
-  // ]
-
   const openingMenu = (e) => {
     let data = e.data 
     switch (data.type) {
@@ -126,18 +105,20 @@ export default function App() {
   }
 
   const saveCharacter = () => {
-    if(newPlayer) {
-      fetch('https://qbr-clothing/save', {method: 'POST', body: JSON.stringify({})})
-      closeMenu(true)
-    } else if(!modal) {
-      setModal(true)
-    } else if(modal && outfitName.length > 1) {
-      setModal(false)
-      fetch('https://qbr-clothing/saveOutfit', {method: 'POST', body: JSON.stringify({
-        outfitName: outfitName
-      })})
-
-      closeMenu(true)
+    if(navSelect != 1) {
+      if(newPlayer) {
+        fetch('https://qbr-clothing/save', {method: 'POST', body: JSON.stringify({})})
+        closeMenu(true)
+      } else if(!modal) {
+        setModal(true)
+      } else if(modal && outfitName.length > 1) {
+        setModal(false)
+        fetch('https://qbr-clothing/saveOutfit', {method: 'POST', body: JSON.stringify({
+          outfitName: outfitName
+        })})
+  
+        closeMenu(true)
+      }
     }
   }
 
