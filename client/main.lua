@@ -33,22 +33,28 @@ end)
 
 Citizen.CreateThread(function()
   for i=1, #Config.Stores, 1 do 
-    if Config.Stores[i].shopType == 'clothing' then 
+    if Config.Stores[i].shopType == 'clothingMenu' then 
       exports['qbr-prompts']:createPrompt(Config.Stores[i].name, Config.Stores[i].coords, 0xCEFD9220, 'Open Clothing Menu', {
         type = 'client',
         event = 'qbr-clothing:client:openMenu',
-        args = {false, 'clothes'}
+        args = {false, 'clothingMenu'}
       })
 
       local clothingShop = N_0x554d9d53f696d002(1664425300, Config.Stores[i].coords)
       SetBlipSprite(clothingShop, 1195729388, 1)
       SetBlipScale(clothingShop, 0.7)
       Citizen.InvokeNative(0x9CB1A1623062F402, blip, 'Clothing store')
-    elseif Config.Stores[i].shopType == 'outfits' then 
+    elseif Config.Stores[i].shopType == 'outfitMenu' then 
       exports['qbr-prompts']:createPrompt(Config.Stores[i].name, Config.Stores[i].coords, 0xCEFD9220, 'Open Outfits Menu', {
         type = 'client',
         event = 'qbr-clothing:client:openMenu',
-        args = {false, 'outfits'}
+        args = {false, 'outfitMenu'}
+      })
+    elseif Config.Stores[i].shopType == 'allMenu' then 
+      exports['qbr-prompts']:createPrompt(Config.Stores[i].name, Config.Stores[i].coords, 0xCEFD9220, 'Open Skin / Clothing Menu', {
+        type = 'client',
+        event = 'qbr-clothing:client:openMenu',
+        args = {false, 'allMenu'}
       })
     end
   end
@@ -244,9 +250,14 @@ RegisterNUICallback('applyClothes', function(data)
     if NewPlayer then 
       LoadClothes(PlayerPedId(), clothes, false)
     else
-      LoadClothes(PlayerPedId(), clothes, true)
+      LoadClothes(PlayerPedId(), clothes, false)
     end
   end
+end)
+
+RegisterNUICallback('useOutfit', function(data)
+  LoadSkin(PlayerPedId(), SkinData)
+  LoadClothes(PlayerPedId(), data.skin, false)
 end)
 
 OpenMenu = function(newPlayer, menuType)
@@ -259,6 +270,7 @@ OpenMenu = function(newPlayer, menuType)
       clothes = clothes
     })
   elseif menuType == 'outfitMenu' then 
+    ClothingRoomTransition(Config.StaticClothingRoom, true)
     QBCore.Functions.TriggerCallback('qbr-clothing:server:getOutfits', function(outfits)
       SendNUIMessage({
         type = 'outfitMenu',
@@ -266,6 +278,7 @@ OpenMenu = function(newPlayer, menuType)
       })
     end)
   elseif menuType == 'skinMenu' then 
+    ClothingRoomTransition(Config.StaticClothingRoom, true)
     local skins = GetSkinMaxValues()
     SendNUIMessage({
       type = 'skinMenu',
