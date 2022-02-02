@@ -195,7 +195,7 @@ RegisterNUICallback('save', function()
   if NewPlayer then 
     newPlayer = false 
     DoScreenFadeOut(150)
-    exports['qbr-weathersync']:enableSync()
+    TriggerServerEvent('qbr-weathersync:client:EnableSync')
     Citizen.Wait(500)
     TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
     TriggerEvent('QBCore:Client:OnPlayerLoaded')
@@ -333,7 +333,7 @@ ClothingRoomTransition = function(coords, makeInvisible)
     Citizen.Wait(10)
   end
 
-  SetEntityCoords(playerPed, coords.x, coords.y, coords.z - 1.0)
+  SetEntityCoords(playerPed, coords.x, coords.y, coords.z, - 1.0)
   SetEntityHeading(playerPed, coords.w or 0.0)
   Citizen.Wait(1000)
   DoScreenFadeIn(1000)
