@@ -195,7 +195,7 @@ RegisterNUICallback('save', function()
   if NewPlayer then 
     newPlayer = false 
     DoScreenFadeOut(150)
-    exports['qbr-weathersync']:enableSync()
+    --exports['qbr-weathersync']:enableSync()
     Citizen.Wait(500)
     TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
     TriggerEvent('QBCore:Client:OnPlayerLoaded')
