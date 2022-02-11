@@ -333,6 +333,12 @@ ClothingRoomTransition = function(coords, makeInvisible)
     Citizen.Wait(10)
   end
 
+  if not coords then 
+    local playerCoords = GetEntityCoords(playerPed)
+    local playerHeading = GetEntityHeading(playerPed)
+    coords = vector4(playerCoords.x, playerCoords.y, playerCoords.z, playerHeading)
+  end
+
   SetEntityCoords(playerPed, coords.x, coords.y, coords.z - 1.0)
   SetEntityHeading(playerPed, coords.w or 0.0)
   Citizen.Wait(1000)
