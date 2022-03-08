@@ -117,7 +117,7 @@ LoadSkin = function(ped, data)
 
     for k,v in pairs(data) do 
       if Config.Features[k] then 
-        Citizen.InvokeNative(0x5653AB26C82938CF, ped, k, v)
+        Citizen.InvokeNative(0x5653AB26C82938CF, ped, Config.Features[k], tonumber(v / 100))
       end
     end
 
@@ -242,9 +242,7 @@ ChangeNotUpdate = function(ped, data)
 
   for k,v in pairs(data) do 
     if Config.Features[k] then 
-      if SkinData[k] and SkinData[k] ~= tonumber(v) then
-        Citizen.InvokeNative(0x5653AB26C82938CF, ped, Config.Features[k], tonumber(v / 100))
-      end
+      Citizen.InvokeNative(0x5653AB26C82938CF, ped, Config.Features[k], tonumber(v / 100))
     end
   end
 
