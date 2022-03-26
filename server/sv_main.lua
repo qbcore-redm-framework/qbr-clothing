@@ -1,8 +1,6 @@
-local QBCore = exports['qbr-core']:GetCoreObject()
-
-QBCore.Functions.CreateCallback('qbr-clothing:server:isPlayerNew', function(source, cb)
+exports['qbr-core']:CreateCallback('qbr-clothing:server:isPlayerNew', function(source, cb)
     local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
+    local Player = exports['qbr-core']:GetPlayer(src)
     local result = MySQL.Sync.fetchAll('SELECT * FROM playerskins WHERE citizenid=@citizenid AND active=@active', {['@citizenid'] = Player.PlayerData.citizenid, ['@active'] = 1})
     if (result[1] == nil) then
         cb(true)
@@ -14,7 +12,7 @@ end)
 RegisterServerEvent("qbr-clothing:server:saveSkin")
 AddEventHandler('qbr-clothing:server:saveSkin', function(model, skin, clothes)
     local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
+    local Player = exports['qbr-core']:GetPlayer(src)
     if model ~= nil and skin ~= nil then
         MySQL.Async.fetchAll('DELETE FROM playerskins WHERE citizenid=@citizenid', {['@citizenid'] = Player.PlayerData.citizenid}, function()
             MySQL.Async.insert('INSERT INTO playerskins (citizenid, model, skin, clothes, active) VALUES (@citizenid, @model, @skin, @clothes, @active)', {
@@ -31,7 +29,7 @@ end)
 RegisterServerEvent("qbr-clothing:server:saveOutfit")
 AddEventHandler("qbr-clothing:server:saveOutfit", function(outfitName, model, skinData)
     local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
+    local Player = exports['qbr-core']:GetPlayer(src)
     if model ~= nil and skinData ~= nil then
         local outfitId = "outfit-"..math.random(1, 10).."-"..math.random(1111, 9999)
         MySQL.Async.fetchAll('INSERT INTO player_outfits (citizenid, outfitname, model, skin, outfitId) VALUES (@citizenid, @outfitname, @model, @skin, @outfitId)', {
@@ -53,7 +51,7 @@ end)
 RegisterServerEvent("qbr-clothing:server:removeOutfit")
 AddEventHandler("qbr-clothing:server:removeOutfit", function(outfitName, outfitId)
     local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
+    local Player = exports['qbr-core']:GetPlayer(src)
     MySQL.Async.fetchAll('DELETE player_outfits (citizenid, outfitname, model, skin, outfitId) VALUES (@citizenid, @outfitname, @model, @skin, @outfitId)', {
         ['@citizenid'] = Player.PlayerData.citizenid,
         ['@outfitname'] = outfitName,
@@ -69,8 +67,8 @@ AddEventHandler("qbr-clothing:server:removeOutfit", function(outfitName, outfitI
     end
 end)
 
-QBCore.Functions.CreateCallback('qbr-clothing:server:getOutfits', function(source, cb)
-    local Player = QBCore.Functions.GetPlayer(source)
+exports['qbr-core']:CreateCallback('qbr-clothing:server:getOutfits', function(source, cb)
+    local Player = exports['qbr-core']:GetPlayer(source)
     local retVal = {}
 
     local result = MySQL.Sync.fetchAll('SELECT * FROM player_outfits WHERE citizenid=@citizenid', {['@citizenid'] = Player.PlayerData.citizenid})
