@@ -32,7 +32,7 @@ end)
 Citizen.CreateThread(function()
     for i = 1, #Config.Stores, 1 do
         if Config.Stores[i].shopType == 'clothingMenu' then
-            exports['qbr-prompts']:createPrompt(Config.Stores[i].name, Config.Stores[i].coords, 0xCEFD9220, 'Open Clothing Menu', {
+            exports['qbr-core']:createPrompt(Config.Stores[i].name, Config.Stores[i].coords, 0xCEFD9220, 'Open Clothing Menu', {
                 type = 'client',
                 event = 'qbr-clothing:client:openMenu',
                 args = {false, 'clothingMenu'}
@@ -43,13 +43,13 @@ Citizen.CreateThread(function()
             SetBlipScale(clothingShop, 0.7)
             Citizen.InvokeNative(0x9CB1A1623062F402, blip, 'Clothing store')
         elseif Config.Stores[i].shopType == 'outfitMenu' then
-            exports['qbr-prompts']:createPrompt(Config.Stores[i].name, Config.Stores[i].coords, 0xCEFD9220, 'Open Outfits Menu', {
+            exports['qbr-core']:createPrompt(Config.Stores[i].name, Config.Stores[i].coords, 0xCEFD9220, 'Open Outfits Menu', {
                 type = 'client',
                 event = 'qbr-clothing:client:openMenu',
                 args = {false, 'outfitMenu'}
             })
         elseif Config.Stores[i].shopType == 'allMenu' then
-            exports['qbr-prompts']:createPrompt(Config.Stores[i].name, Config.Stores[i].coords, 0xCEFD9220, 'Open Skin / Clothing Menu', {
+            exports['qbr-core']:createPrompt(Config.Stores[i].name, Config.Stores[i].coords, 0xCEFD9220, 'Open Skin / Clothing Menu', {
                 type = 'client',
                 event = 'qbr-clothing:client:openMenu',
                 args = {false, 'allMenu'}
