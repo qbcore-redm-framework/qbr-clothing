@@ -197,7 +197,7 @@ RegisterNUICallback('save', function()
         Citizen.Wait(500)
         TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
         TriggerEvent('QBCore:Client:OnPlayerLoaded')
-        SetEntityCoords(playerPed, 1359.57, -1301.45, 77.76)
+        --SetEntityCoords(playerPed, 1359.57, -1301.45, 77.76) -- not sure why you would set coords after but ok?
         DisableCamera()
         if NetworkIsInTutorialSession() then
             NetworkEndTutorialSession()
