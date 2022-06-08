@@ -1,10 +1,12 @@
 Config = {}
+
 Config.StaticClothingRoom = vector4(-767.76, -1295.21, 43.84, 286.88)
 
 Config.Stores = {
-  {name = 'RhodesClothing', shopType = "clothingMenu", coords = vector3(1323.22, -1321.57, 77.89)},
-  {name = 'BlackWaterClothing', shopType = "clothingMenu", coords = vector3(-764.92, -1291.99, 43.84)},
-  {name = 'RhodesOutfits', shopType = "outfitMenu", coords = vector3(1323.22, -1321.57, 77.89)},
+	{name = 'Clothing Store', 		location = 'rhodes',		coords = vector3(1322.6829, -1321.438, 77.888961),	showblip = true},
+	{name = 'Clothing Store', 		location = 'blackwater', 	coords = vector3(-765.0071, -1291.379, 43.834983),	showblip = true},
+	{name = 'Clothing Store', 		location = 'valentine', 	coords = vector3(-326.2099, 797.40667, 121.51245),	showblip = true},
+	{name = 'Clothing Store', 		location = 'stdenis', 		coords = vector3(2553.0288, -1161.096, 53.683528),	showblip = true},
 }
 
 Config.Features = {
