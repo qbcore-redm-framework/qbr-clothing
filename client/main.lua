@@ -32,10 +32,15 @@ end)
 -- clothing shops prompts and blips
 Citizen.CreateThread(function()
     for clothing, v in pairs(Config.Stores) do
-        exports['qbr-core']:createPrompt(v.location, v.coords, 0xF3830D8E, 'Open ' .. v.name, {
+        exports['qbr-core']:createPrompt(v.location..'-clothing', v.coords, 0xF3830D8E, 'Open ' .. v.name, { -- [J]
 			type = 'client',
 			event = 'qbr-clothing:client:openMenu',
 			args = {false, 'clothingMenu'}
+        })
+		exports['qbr-core']:createPrompt(v.location..'-outfits', v.coords, 0xC7B5340A, 'Open Outfits', { -- ["ENTER"]
+            type = 'client',
+            event = 'qbr-clothing:client:openMenu',
+            args = {false, 'outfitMenu'},
         })
         if v.showblip == true then
 			local ClothingBlip = Citizen.InvokeNative(0x554D9D53F696D002, 1664425300, v.coords)
@@ -244,6 +249,11 @@ end)
 RegisterNUICallback('useOutfit', function(data)
     LoadSkin(PlayerPedId(), SkinData)
     LoadClothes(PlayerPedId(), data.skin, false)
+	local playerPed = PlayerPedId()
+	local model = GetEntityModel(playerPed)
+    local skins = json.encode(SkinData)
+    local clothes = json.encode(data.skin)
+    TriggerServerEvent('qbr-clothing:server:saveSkin', model, skins, clothes)
 end)
 
 OpenMenu = function(newPlayer, menuType)
