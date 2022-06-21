@@ -235,9 +235,11 @@ export default function App() {
                   </button>
                 }
 
-                <button className='button button-solid' onClick={() => closeMenu(false)}>
-                  Close
-                </button>
+                { !newPlayer &&
+                        <button className='button button-solid' onClick={() => closeMenu(false)}>
+                          Close
+                        </button>
+                }
               </div>
             </div>
           </div>
