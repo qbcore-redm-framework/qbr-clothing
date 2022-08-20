@@ -441,7 +441,7 @@ LoadClothes = function(ped, data, preview)
             Citizen.Wait(1)
         end
 
-        local sex = IsPedMale(PlayerPedId()) and 'Male' or 'Female'
+        local sex = IsPedMale(ped) and 'Male' or 'Female'
         for k, v in pairs(data) do
             for i, j in pairs(Clothes[sex]) do
                 if k == i then
