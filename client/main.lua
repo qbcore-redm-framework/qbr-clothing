@@ -386,6 +386,8 @@ GetSkinMaxValues = function()
     local sex = IsPedMale(PlayerPedId()) and 'Male' or 'Female'
     local skins = {}
     -- skins.overlay = {}
+    skins[#skins + 1] = {name = 'body_size', minValue = 1, maxValue = #Config.BodyTypes, currentValue = 1}
+	
     for k, v in pairs(Skins[sex]) do
         if (k ~= 'BODIES_UPPER' and k ~= 'BODIES_LOWER') then
             if SkinData[k] then
