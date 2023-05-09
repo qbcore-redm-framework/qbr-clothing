@@ -180,6 +180,13 @@ end)
 RegisterNUICallback('save', function()
     local playerPed = PlayerPedId()
     local model = GetEntityModel(playerPed)
+
+    -- Fixes head not saving
+    if SkinData.heads ~= nil then 
+        if SkinData.heads < 1 then SkinData.heads = 1 end
+    else
+        table.insert(SkinData, {heads = 1})
+    end
     local skins = json.encode(SkinData)
     local clothes = json.encode(ClothesData)
     TriggerServerEvent('qbr-clothing:server:saveSkin', model, skins, clothes)
