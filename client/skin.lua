@@ -7,11 +7,12 @@ LoadSkin = function(ped, data)
   if data and next(data) then 
     dataExist = true 
   else
-    data.skin = 1
-    data.heads = 1
-    data.hair = 1
-    data.eyes = 1
-    data.beard = 1
+    data = data or {}
+    data.skin = data.skin or 1
+    data.heads = data.heads or 1
+    data.hair = data.hair or 1
+    data.eyes = data.eyes or 1
+    data.beard = data.beard or 1
     dataExist = true
   end
 
