@@ -17,6 +17,8 @@ Clothes = {}
 Clothes.Male = {}
 Clothes.Female = {}
 
+local nui = false
+
 Citizen.CreateThread(function()
     while true do
         local sleep = 1000
@@ -114,6 +116,7 @@ RegisterNetEvent('qbr-clothing:client:openMenu', function(newPlayer, menuType)
 end)
 
 RegisterNUICallback('rotateCamera', function(data)
+    if not nui then return end
     local rotation = data.direction
     local playerPed = PlayerPedId()
     local playerCoords = GetOffsetFromEntityInWorldCoords(playerPed, 0, 2.0, 0)
@@ -130,6 +133,7 @@ RegisterNUICallback('rotateCamera', function(data)
 end)
 
 RegisterNUICallback('setCamera', function(data)
+    if not nui then return end
     local rotation = data.direction
     local playerPed = PlayerPedId()
 
@@ -153,6 +157,8 @@ RegisterNUICallback('setCamera', function(data)
 end)
 
 RegisterNUICallback('closeMenu', function()
+    if not nui then return end
+    nui = false
     local playerPed = PlayerPedId()
     LoadSkin(playerPed, SkinData)
     LoadClothes(playerPed, ClothesData, false)
@@ -164,6 +170,8 @@ RegisterNUICallback('closeMenu', function()
 end)
 
 RegisterNUICallback('closeMenu2', function()
+    if not nui then return end
+    nui = false
     local citizenid = exports['qbr-core']:GetPlayerData().citizenid
     exports['qbr-core']:TriggerCallback('qbr-multicharacter:server:getSkin', function(data)
         local playerPed = PlayerPedId()
@@ -178,6 +186,7 @@ RegisterNUICallback('closeMenu2', function()
 end)
 
 RegisterNUICallback('save', function()
+    if not nui then return end
     local playerPed = PlayerPedId()
     local model = GetEntityModel(playerPed)
 
@@ -212,6 +221,7 @@ RegisterNUICallback('save', function()
 end)
 
 RegisterNUICallback('saveOutfit', function(data)
+    if not nui then return end
     local playerPed = PlayerPedId()
     local model = GetEntityModel(playerPed)
     local clothes = json.encode(ClothesData)
@@ -220,6 +230,7 @@ RegisterNUICallback('saveOutfit', function(data)
 end)
 
 RegisterNUICallback('applySkin', function(data)
+    if not nui then return end
     local skins = {}
     for k, v in pairs(data.values) do
         if not skins[v.name] then
@@ -237,6 +248,7 @@ RegisterNUICallback('applySkin', function(data)
 end)
 
 RegisterNUICallback('applyClothes', function(data)
+    if not nui then return end
     local clothes = {}
     for k, v in pairs(data.values) do
         if not clothes[v.name] then
@@ -254,6 +266,7 @@ RegisterNUICallback('applyClothes', function(data)
 end)
 
 RegisterNUICallback('useOutfit', function(data)
+    if not nui then return end
     LoadSkin(PlayerPedId(), SkinData)
     LoadClothes(PlayerPedId(), data.skin, false)
 	local playerPed = PlayerPedId()
@@ -264,6 +277,7 @@ RegisterNUICallback('useOutfit', function(data)
 end)
 
 OpenMenu = function(newPlayer, menuType)
+    nui = true
     if newPlayer then
         local skins = GetSkinMaxValues()
         local clothes = GetClothesMaxValues()
