@@ -4,7 +4,7 @@ local TorsoComponent = 0
 LoadSkin = function(ped, data)
   local dataExist = false 
 
-  if data and next(data) then 
+  if data.skin and data.skin > 0 then
     dataExist = true 
   else
     data = data or {}
