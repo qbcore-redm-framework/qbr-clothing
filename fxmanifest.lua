@@ -36,4 +36,4 @@ dependencies {
 	'qbr-core'
 }
 
-lua54 'yes
+lua54 'yes'
