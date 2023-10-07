@@ -10,29 +10,21 @@ PreviousClothesData = {}
 PreviewSkinData = {}
 PreviewClothesData = {}
 
-Skins = {}
-Skins.Male = {}
-Skins.Female = {}
-Clothes = {}
-Clothes.Male = {}
-Clothes.Female = {}
-
 local nui = false
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local sleep = 1000
         if NewPlayer then
             sleep = 0
             DrawLightWithRange(-558.71 - 5.0, -3781.6 - 5.0, 238.6 + 1.0, 255, 255, 204, 50.5, 50.0)
         end
-
-        Citizen.Wait(sleep)
+        Wait(sleep)
     end
 end)
 
 -- clothing shops prompts and blips
-Citizen.CreateThread(function()
+CreateThread(function()
     for clothing, v in pairs(Config.Stores) do
         exports['qbr-core']:createPrompt(v.location..'-clothing', v.coords, 0xF3830D8E, 'Open ' .. v.name, { -- [J]
 			type = 'client',
@@ -53,7 +45,7 @@ Citizen.CreateThread(function()
     end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     for _, v in pairs(cloth_hash_names) do
         if v.category_hashname == 'heads'
             or v.category_hashname == 'eyes'
