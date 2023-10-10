@@ -45,42 +45,6 @@ CreateThread(function()
     end
 end)
 
-CreateThread(function()
-    for _, v in pairs(cloth_hash_names) do
-        if v.category_hashname == 'heads'
-            or v.category_hashname == 'eyes'
-            or v.category_hashname == 'teeth'
-            or v.category_hashname == 'BODIES_UPPER'
-            or v.category_hashname == 'BODIES_LOWER'
-            or v.category_hashname == 'beard'
-            or v.category_hashname == 'hair' then
-            if v.ped_type == 'male' and v.hashname ~= '' and v.is_multiplayer then
-                if not Skins.Male[v.category_hashname] then
-                    Skins.Male[v.category_hashname] = {}
-                end
-                Skins.Male[v.category_hashname][#Skins.Male[v.category_hashname] + 1] = v.hash
-            elseif v.ped_type == 'female' and v.hashname ~= '' and v.is_multiplayer then
-                if not Skins.Female[v.category_hashname] then
-                    Skins.Female[v.category_hashname] = {}
-                end
-                Skins.Female[v.category_hashname][#Skins.Female[v.category_hashname] + 1] = v.hash
-            end
-        else
-            if v.ped_type == 'male' and v.hashname ~= '' and v.is_multiplayer then
-                if not Clothes.Male[v.category_hashname] then
-                    Clothes.Male[v.category_hashname] = {}
-                end
-                Clothes.Male[v.category_hashname][#Clothes.Male[v.category_hashname] + 1] = v.hash
-            elseif v.ped_type == 'female' and v.hashname ~= '' and v.is_multiplayer then
-                if not Clothes.Female[v.category_hashname] then
-                    Clothes.Female[v.category_hashname] = {}
-                end
-                Clothes.Female[v.category_hashname][#Clothes.Female[v.category_hashname] + 1] = v.hash
-            end
-        end
-    end
-end)
-
 AddEventHandler('onResourceStart', function(resource)
     if GetCurrentResourceName() == resource then
         DisableCamera()
