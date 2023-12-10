@@ -20,9 +20,8 @@ Saveable Outfits
 
 ## Installation
 
-# Download the script and put it in the [qbr] directory.
-
-# Add the following code to your server.cfg/resouces.cfg
+Download the script and put it in the [qbr] directory.
+Add the following code to your server.cfg/resouces.cfg
 
 ```
 ensure qbr-core
