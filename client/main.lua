@@ -128,11 +128,16 @@ end)
 RegisterNUICallback('closeMenu2', function()
     if not nui then return end
     nui = false
+    local playerPed = PlayerPedId()
     local citizenid = exports['qbr-core']:GetPlayerData().citizenid
     exports['qbr-core']:TriggerCallback('qbr-multicharacter:server:getSkin', function(data)
-        local playerPed = PlayerPedId()
-        LoadSkin(playerPed, data.skin)
-        LoadClothes(playerPed, data.clothes, false)
+        if data then
+            LoadSkin(playerPed, data.skin)
+            LoadClothes(playerPed, data.clothes, false)
+        else
+            LoadSkin(playerPed, SkinData)
+            LoadClothes(playerPed, ClothesData, false)
+        end
         SetNuiFocus(false, false)
         RenderScriptCams(false, true, 250, 1, 0)
         DestroyCam(Camera, false)
