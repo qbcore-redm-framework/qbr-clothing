@@ -351,7 +351,7 @@ RequestAndSetModel = function(model)
     end
     Citizen.Wait(200)
     Citizen.InvokeNative(0xED40380076A31506, PlayerId(), requestedModel, false)
-    Citizen.InvokeNative(0x77FF8D35EEC6BBC4, PlayerPedId(), 0, 0)
+    Citizen.InvokeNative(0x0BFA1BD465CDFEFD, PlayerPedId())
     Citizen.Wait(200)
     Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x1D4C528A, 0)
     Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), 0x3F1F01E5, 0)
