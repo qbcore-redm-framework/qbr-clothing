@@ -26,7 +26,7 @@ export default function App() {
   const [outfitName, setOutfitName] = useState(null)
 
   const openingMenu = (e) => {
-    let data = e.data 
+    let data = e.data
     switch (data.type) {
       case 'newPlayer':
         setNew(true)
@@ -98,8 +98,6 @@ export default function App() {
 
     if(save) {
       fetch('https://qbr-clothing/closeMenu', {method: 'POST', body: JSON.stringify({})})
-    } else {
-      fetch('https://qbr-clothing/closeMenu2', {method: 'POST', body: JSON.stringify({})})
     }
 
   }
@@ -116,7 +114,7 @@ export default function App() {
         fetch('https://qbr-clothing/saveOutfit', {method: 'POST', body: JSON.stringify({
           outfitName: outfitName
         })})
-  
+
         closeMenu(true)
       }
     }
@@ -191,21 +189,21 @@ export default function App() {
             <div className="contentWrapper_inner">
               <div className="clothingSection">
 
-                { navSelect === 1 && 
+                { navSelect === 1 &&
                   <>
                     <p className="clothingMenu_header">Outfits</p>
-                    <Outfits data={outfits} /> 
+                    <Outfits data={outfits} />
                   </>
                 }
-                { navSelect === 2 && 
+                { navSelect === 2 &&
                   <>
                     <div className="clothingMenu_header">
                       <p>Skin Customization</p>
                     </div>
                     <Skins data={skins} />
-                  </> 
+                  </>
                 }
-                { navSelect === 3 &&  
+                { navSelect === 3 &&
                   <>
                     <p className="clothingMenu_header">Clothing Customization</p>
                     <Clothes data={clothes} />
@@ -216,8 +214,8 @@ export default function App() {
                 <button className='button button-solid' onClick={() => saveCharacter()}>
                   Save
                 </button>
-                
-                { (!newPlayer && menuType === 'outfits' || menuType === 'all') && 
+
+                { (!newPlayer && menuType === 'outfits' || menuType === 'all') &&
                   <button className={navSelect === 1 ? 'button button-solid active' : 'button button-solid'}  onClick={() => setMenu(1)} data-tip='Outfits'>
                     <FontAwesomeIcon icon="suitcase" />
                   </button>
@@ -235,7 +233,7 @@ export default function App() {
                   </button>
                 }
 
-                <button className='button button-solid' onClick={() => closeMenu(false)}>
+                <button className='button button-solid' onClick={() => closeMenu(true)}>
                   Close
                 </button>
               </div>
@@ -246,3 +244,4 @@ export default function App() {
     </main>
   )
 }
+
