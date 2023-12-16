@@ -125,23 +125,6 @@ RegisterNUICallback('closeMenu', function()
     FreezeEntityPosition(playerPed, false)
 end)
 
-RegisterNUICallback('closeMenu2', function()
-    if not nui then return end
-    nui = false
-    local playerPed = PlayerPedId()
-    local model = GetEntityModel(playerPed)
-    local skins = json.encode(SkinData)
-    local clothes = json.encode(ClothesData)
-    LoadSkin(playerPed, SkinData)
-    LoadClothes(playerPed, ClothesData, false)
-    SetNuiFocus(false, false)
-    RenderScriptCams(false, true, 250, 1, 0)
-    DestroyCam(Camera, false)
-    ClothingRoomTransition(BeforePosition, false)
-    FreezeEntityPosition(playerPed, false)
-    TriggerServerEvent('qbr-clothing:server:saveSkin', model, skins, clothes)
-end)
-
 RegisterNUICallback('save', function()
     if not nui then return end
     local playerPed = PlayerPedId()
